@@ -8,10 +8,8 @@ import Header from "./Header";
 const DefaultPostContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
   maxWidth: "400px",
-  height: "70vh",
-  minHeight: "500px",
+  width: "100%",
   borderRadius: "10px",
   border: `1px solid ${theme.palette.grey[400]}`,
 }));
@@ -34,12 +32,19 @@ const CommentInput = styled(TextField)(({ theme }) => ({
   },
 }));
 
+const MediaContainer = styled(Box)(() => ({
+  backgroundColor: "black",
+  minHeight: "300px",
+  maxHeight: "450px",
+  height: "100vh",
+}));
+
 const DefaultPost: React.FC = () => {
   return (
     <DefaultPostContainer>
       <Header />
 
-      <Box sx={{ flex: 1, backgroundColor: "black" }}>media</Box>
+      <MediaContainer></MediaContainer>
 
       <Details />
 
