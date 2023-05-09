@@ -10,7 +10,6 @@ const DetailsContainer = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: theme.spacing(1),
   padding: theme.spacing(1),
-  borderBottom: `1px solid ${theme.palette.grey[300]}`,
 }));
 
 const QuickActionContainer = styled(Box)(() => ({
@@ -38,6 +37,13 @@ const Details: React.FC = () => {
 
       <Typography sx={{ fontWeight: "bold" }}>300 likes</Typography>
       <Typography>caption goes here</Typography>
+
+      <Box>
+        <Typography sx={{ fontSize: "0.85rem" }}>
+          View all 200 comments
+        </Typography>
+        <Typography sx={{ fontSize: "0.85rem" }}>2 hours ago</Typography>
+      </Box>
     </DetailsContainer>
   );
 };
