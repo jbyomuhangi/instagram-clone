@@ -1,13 +1,16 @@
 import { ThemeProvider } from "@mui/material";
 import React from "react";
 
-import DefaultPost from "./components/Post/DefaultPost";
+import AppLayout from "./components/Layouts/AppLayout";
+import Home from "./components/Pages/Home";
 import theme from "./theme";
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <DefaultPost />
+      <AppLayout>
+        <Home />
+      </AppLayout>
     </ThemeProvider>
   );
 };

@@ -12,6 +12,7 @@ const DefaultPostContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   borderRadius: "10px",
   border: `1px solid ${theme.palette.grey[400]}`,
+  backgroundColor: theme.palette.common.white,
 }));
 
 const CommentInput = styled(TextField)(({ theme }) => ({
