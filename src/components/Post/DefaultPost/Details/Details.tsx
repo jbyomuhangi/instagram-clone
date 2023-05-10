@@ -1,6 +1,8 @@
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 
+import LikeCount from "./LikeCount";
+import PostTimestamp from "./PostTimestamp";
 import QuickActions from "./QuickActions";
 
 const DetailsContainer = styled(Box)(({ theme }) => ({
@@ -30,14 +32,15 @@ const Details: React.FC<RequiredProps & DefaultProps> = ({
   return (
     <DetailsContainer>
       <QuickActions />
-      <Typography sx={{ fontWeight: "bold" }}>300 likes</Typography>
+      <LikeCount />
       <Typography>caption goes here</Typography>
 
       <Box>
         <ViewAllComments onClick={onViewFullPost}>
           View all 200 comments
         </ViewAllComments>
-        <Typography sx={{ fontSize: "0.85rem" }}>2 hours ago</Typography>
+
+        <PostTimestamp />
       </Box>
     </DetailsContainer>
   );

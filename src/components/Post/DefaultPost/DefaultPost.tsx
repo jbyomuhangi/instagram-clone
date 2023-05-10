@@ -3,7 +3,7 @@ import React from "react";
 
 import { empty } from "@/utils/noopUtils";
 import CommentInput from "./CommentInput";
-import Details from "./Details";
+import Details from "./Details/Details";
 import Header from "./Header";
 
 const DefaultPostContainer = styled(Box)(({ theme }) => ({
