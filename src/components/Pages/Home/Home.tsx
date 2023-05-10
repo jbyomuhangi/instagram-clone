@@ -1,5 +1,5 @@
-import { Box, styled } from "@mui/material";
-import React from "react";
+import { Box, Modal, styled } from "@mui/material";
+import React, { useState } from "react";
 
 import DefaultPost from "@/components/Post/DefaultPost";
 
@@ -14,15 +14,25 @@ const HomeContainer = styled(Box)(({ theme }) => ({
 }));
 
 const Home: React.FC = () => {
+  const [isFullPostOpen, setIsFullPostOpen] = useState<boolean>(false);
+
+  const handleOpenFullPost = () => {
+    setIsFullPostOpen(true);
+  };
+
+  const handleCloseFullPost = () => {
+    setIsFullPostOpen(false);
+  };
+
   return (
     <HomeContainer>
-      <DefaultPost />
-      <DefaultPost />
-      <DefaultPost />
-      <DefaultPost />
-      <DefaultPost />
-      <DefaultPost />
-      <DefaultPost />
+      {[1, 2, 3, 4, 5].map((num) => {
+        return <DefaultPost key={num} onViewFullPost={handleOpenFullPost} />;
+      })}
+
+      <Modal open={isFullPostOpen} onClose={handleCloseFullPost}>
+        <Box>hello</Box>
+      </Modal>
     </HomeContainer>
   );
 };

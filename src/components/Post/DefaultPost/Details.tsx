@@ -22,7 +22,23 @@ const RightQuickActionContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-const Details: React.FC = () => {
+const ViewAllComments = styled(Typography)(({ theme }) => ({
+  fontSize: "0.85rem",
+  cursor: "pointer",
+  "&:hover": {
+    opacity: "50%",
+  },
+}));
+
+type RequiredProps = {
+  onViewFullPost: () => void;
+};
+
+type DefaultProps = {};
+
+const Details: React.FC<RequiredProps & DefaultProps> = ({
+  onViewFullPost,
+}) => {
   return (
     <DetailsContainer>
       <QuickActionContainer>
@@ -39,13 +55,15 @@ const Details: React.FC = () => {
       <Typography>caption goes here</Typography>
 
       <Box>
-        <Typography sx={{ fontSize: "0.85rem" }}>
+        <ViewAllComments onClick={onViewFullPost}>
           View all 200 comments
-        </Typography>
+        </ViewAllComments>
         <Typography sx={{ fontSize: "0.85rem" }}>2 hours ago</Typography>
       </Box>
     </DetailsContainer>
   );
 };
+
+Details.defaultProps = {} as DefaultProps;
 
 export default Details;

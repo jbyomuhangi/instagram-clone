@@ -2,6 +2,7 @@ import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfi
 import { Box, styled, TextField, Typography } from "@mui/material";
 import React from "react";
 
+import { empty } from "@/utils/noopUtils";
 import Details from "./Details";
 import Header from "./Header";
 
@@ -40,14 +41,22 @@ const MediaContainer = styled(Box)(() => ({
   height: "100vh",
 }));
 
-const DefaultPost: React.FC = () => {
+type RequiredProps = {
+  onViewFullPost: () => void;
+};
+
+type DefaultProps = {};
+
+const DefaultPost: React.FC<RequiredProps & DefaultProps> = ({
+  onViewFullPost,
+}) => {
   return (
     <DefaultPostContainer>
       <Header />
 
       <MediaContainer></MediaContainer>
 
-      <Details />
+      <Details onViewFullPost={onViewFullPost} />
 
       <CommentInput
         placeholder="Add comment..."
@@ -61,5 +70,7 @@ const DefaultPost: React.FC = () => {
     </DefaultPostContainer>
   );
 };
+
+DefaultPost.defaultProps = { onViewFullPost: empty } as DefaultProps;
 
 export default DefaultPost;
