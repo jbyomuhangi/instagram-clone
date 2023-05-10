@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, styled, useTheme } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import React, { useState } from "react";
 
 import Modal from "@/components/Modal";
