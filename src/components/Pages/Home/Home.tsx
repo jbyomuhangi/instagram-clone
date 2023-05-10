@@ -1,7 +1,9 @@
-import { Box, Modal, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import React, { useState } from "react";
 
+import Modal from "@/components/Modal";
 import DefaultPost from "@/components/Post/DefaultPost";
+import FullPost from "@/components/Post/FullPost";
 
 const HomeContainer = styled(Box)(({ theme }) => ({
   flex: 1,
@@ -31,7 +33,7 @@ const Home: React.FC = () => {
       })}
 
       <Modal open={isFullPostOpen} onClose={handleCloseFullPost}>
-        <Box>hello</Box>
+        <FullPost />
       </Modal>
     </HomeContainer>
   );

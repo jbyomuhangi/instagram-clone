@@ -1,8 +1,8 @@
-import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
-import { Box, styled, TextField, Typography } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import React from "react";
 
 import { empty } from "@/utils/noopUtils";
+import CommentInput from "./CommentInput";
 import Details from "./Details";
 import Header from "./Header";
 
@@ -14,24 +14,6 @@ const DefaultPostContainer = styled(Box)(({ theme }) => ({
   borderRadius: "10px",
   border: `1px solid ${theme.palette.grey[400]}`,
   backgroundColor: theme.palette.common.white,
-}));
-
-const CommentInput = styled(TextField)(({ theme }) => ({
-  "& .MuiInputBase-root": {
-    padding: theme.spacing(1),
-    display: "flex",
-    alignItems: "center",
-  },
-
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: `1px solid ${theme.palette.grey[300]} !important`,
-    },
-  },
-
-  "& .MuiInputBase-input": {
-    margin: `0px ${theme.spacing(1)}`,
-  },
 }));
 
 const MediaContainer = styled(Box)(() => ({
@@ -58,15 +40,7 @@ const DefaultPost: React.FC<RequiredProps & DefaultProps> = ({
 
       <Details onViewFullPost={onViewFullPost} />
 
-      <CommentInput
-        placeholder="Add comment..."
-        multiline
-        maxRows={4}
-        InputProps={{
-          startAdornment: <SentimentSatisfiedOutlinedIcon />,
-          endAdornment: <Typography>Post</Typography>,
-        }}
-      />
+      <CommentInput />
     </DefaultPostContainer>
   );
 };
