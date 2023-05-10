@@ -19,25 +19,36 @@ const ViewAllComments = styled(Typography)(({ theme }) => ({
   },
 }));
 
-type RequiredProps = {
-  onViewFullPost: () => void;
+type RequiredProps = {};
+
+type DefaultProps = {
+  onViewFullPost?: () => void;
+  isFullPost?: boolean;
+  isExtraSmallScreen?: boolean;
 };
 
-type DefaultProps = {};
-
 const Details: React.FC<RequiredProps & DefaultProps> = ({
+  isFullPost,
+  isExtraSmallScreen,
   onViewFullPost,
 }) => {
+  const isCaptionVisible = !isFullPost || (isFullPost && !isExtraSmallScreen);
+  const isVAllCommentsVisible =
+    !isFullPost || (isFullPost && !isExtraSmallScreen);
+
   return (
     <DetailsContainer>
       <QuickActions />
       <LikeCount />
-      <Typography>caption goes here</Typography>
+
+      {isCaptionVisible && <Typography>caption goes here</Typography>}
 
       <Box>
-        <button onClick={onViewFullPost}>
-          <ViewAllComments>View all 200 comments</ViewAllComments>
-        </button>
+        {isVAllCommentsVisible && (
+          <button onClick={onViewFullPost}>
+            <ViewAllComments>View all 200 comments</ViewAllComments>
+          </button>
+        )}
 
         <PostTimestamp />
       </Box>

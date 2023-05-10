@@ -1,7 +1,6 @@
-import { Box, styled } from "@mui/material";
+import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React from "react";
 
-import { empty } from "@/utils/noopUtils";
 import CommentInput from "./CommentInput";
 import Details from "./Details/Details";
 import Header from "./Header";
@@ -23,28 +22,40 @@ const MediaContainer = styled(Box)(() => ({
   height: "100vh",
 }));
 
-type RequiredProps = {
-  onViewFullPost: () => void;
+type RequiredProps = {};
+
+type DefaultProps = {
+  isFullPost?: boolean;
+  onViewFullPost?: () => void;
 };
 
-type DefaultProps = {};
-
 const DefaultPost: React.FC<RequiredProps & DefaultProps> = ({
+  isFullPost,
   onViewFullPost,
 }) => {
+  const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
+
   return (
-    <DefaultPostContainer>
+    <DefaultPostContainer
+      sx={{ ...(isFullPost && { width: "80vw", border: "unset" }) }}
+    >
       <Header />
 
       <MediaContainer></MediaContainer>
 
-      <Details onViewFullPost={onViewFullPost} />
+      <Details
+        isFullPost={isFullPost}
+        isExtraSmallScreen={isExtraSmallScreen}
+        onViewFullPost={onViewFullPost}
+      />
 
-      <CommentInput />
+      {!isExtraSmallScreen && <CommentInput />}
     </DefaultPostContainer>
   );
 };
 
-DefaultPost.defaultProps = { onViewFullPost: empty } as DefaultProps;
+DefaultPost.defaultProps = {} as DefaultProps;
 
 export default DefaultPost;

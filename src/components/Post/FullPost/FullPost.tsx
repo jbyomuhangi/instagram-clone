@@ -1,6 +1,7 @@
-import { Box, styled } from "@mui/material";
+import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React from "react";
 
+import DefaultPost from "@/components/Post/DefaultPost";
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
 import LikeCount from "@/components/Post/DefaultPost/Details/LikeCount";
 import PostTimestamp from "@/components/Post/DefaultPost/Details/PostTimestamp";
@@ -47,12 +48,26 @@ type RequiredProps = {};
 
 type DefaultProps = {};
 
-const FullPost: React.FC<RequiredProps & DefaultProps> = ({}) => {
+const FullPost: React.FC<RequiredProps & DefaultProps> = () => {
+  const isMediumScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("lg")
+  );
+
+  const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
+
+  if (isExtraSmallScreen) {
+    return <DefaultPost isFullPost />;
+  }
+
   return (
     <FullPostContainer>
       <MediaContainer></MediaContainer>
 
-      <DetailsContainer>
+      <DetailsContainer
+        sx={{ ...(isMediumScreen && { width: "unset", flex: 1 }) }}
+      >
         <Header />
 
         <CommentContainer></CommentContainer>
