@@ -46,9 +46,11 @@ const Home: React.FC = () => {
       </Modal>
 
       {isFullPostOpen && (
-        <CloseButtonContainer onClick={handleCloseFullPost}>
-          <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
-        </CloseButtonContainer>
+        <button onClick={handleCloseFullPost}>
+          <CloseButtonContainer>
+            <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
+          </CloseButtonContainer>
+        </button>
       )}
     </HomeContainer>
   );

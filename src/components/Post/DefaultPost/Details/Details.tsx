@@ -14,7 +14,6 @@ const DetailsContainer = styled(Box)(({ theme }) => ({
 
 const ViewAllComments = styled(Typography)(({ theme }) => ({
   fontSize: "0.85rem",
-  cursor: "pointer",
   "&:hover": {
     opacity: "50%",
   },
@@ -36,9 +35,9 @@ const Details: React.FC<RequiredProps & DefaultProps> = ({
       <Typography>caption goes here</Typography>
 
       <Box>
-        <ViewAllComments onClick={onViewFullPost}>
-          View all 200 comments
-        </ViewAllComments>
+        <button onClick={onViewFullPost}>
+          <ViewAllComments>View all 200 comments</ViewAllComments>
+        </button>
 
         <PostTimestamp />
       </Box>
