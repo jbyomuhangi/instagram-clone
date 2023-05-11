@@ -15,12 +15,20 @@ const RightQuickActionContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-const QuickActions: React.FC = () => {
+type DefaultProps = {
+  onCommentClick?: () => void;
+};
+
+const QuickActions: React.FC<DefaultProps> = ({ onCommentClick }) => {
   return (
     <QuickActionsContainer>
       <RightQuickActionContainer>
         <FavoriteBorderOutlinedIcon />
-        <ModeCommentOutlinedIcon />
+
+        <button onClick={onCommentClick}>
+          <ModeCommentOutlinedIcon />
+        </button>
+
         <SendOutlinedIcon />
       </RightQuickActionContainer>
 

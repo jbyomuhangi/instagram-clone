@@ -1,16 +1,15 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, styled } from "@mui/material";
+import { styled } from "@mui/material";
 import React from "react";
 
 import Modal from "@/components/Modal";
 import FullPostContent from "./FullPostContent";
 
-const CloseButtonContainer = styled(Box)(({ theme }) => ({
+const CloseButton = styled("button")(({ theme }) => ({
   position: "absolute",
   top: 40,
   right: 50,
-  zIndex: theme.zIndex.modal + 10,
-  cursor: "pointer",
+  zIndex: theme.zIndex.modal + 1,
 }));
 
 type RequiredProps = {
@@ -29,11 +28,9 @@ const FullPost: React.FC<RequiredProps> = ({
       </Modal>
 
       {isFullPostOpen && (
-        <button onClick={onCloseFullPost}>
-          <CloseButtonContainer>
-            <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
-          </CloseButtonContainer>
-        </button>
+        <CloseButton onClick={onCloseFullPost}>
+          <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
+        </CloseButton>
       )}
     </>
   );

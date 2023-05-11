@@ -1,6 +1,7 @@
 import { Box, Typography, styled } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
+import CommentDrawer from "./CommentDrawer";
 import LikeCount from "./LikeCount";
 import PostTimestamp from "./PostTimestamp";
 import QuickActions from "./QuickActions";
@@ -20,9 +21,9 @@ const ViewAllComments = styled(Typography)(() => ({
 }));
 
 type DefaultProps = {
-  onViewFullPost?: () => void;
   isFullPost?: boolean;
   isExtraSmallScreen?: boolean;
+  onViewFullPost?: () => void;
 };
 
 const Details: React.FC<DefaultProps> = ({
@@ -30,27 +31,49 @@ const Details: React.FC<DefaultProps> = ({
   isExtraSmallScreen,
   onViewFullPost,
 }) => {
+  const [isCommentDrawerOpen, setIsCommentDrawerOpen] =
+    useState<boolean>(false);
+
+  const handleOpenCommentDrawer = () => {
+    setIsCommentDrawerOpen(true);
+  };
+
+  const handleCloseCommentDrawer = () => {
+    setIsCommentDrawerOpen(false);
+  };
+
   const isCaptionVisible = !isFullPost || (isFullPost && !isExtraSmallScreen);
   const isVAllCommentsVisible =
     !isFullPost || (isFullPost && !isExtraSmallScreen);
 
   return (
-    <DetailsContainer>
-      <QuickActions />
-      <LikeCount />
+    <>
+      <DetailsContainer>
+        <QuickActions
+          onCommentClick={isFullPost ? handleOpenCommentDrawer : onViewFullPost}
+        />
+        <LikeCount />
 
-      {isCaptionVisible && <Typography>caption goes here</Typography>}
+        {isCaptionVisible && <Typography>caption goes here</Typography>}
 
-      <Box>
-        {isVAllCommentsVisible && (
-          <button onClick={onViewFullPost}>
-            <ViewAllComments>View all 200 comments</ViewAllComments>
-          </button>
-        )}
+        <Box>
+          {isVAllCommentsVisible && (
+            <button onClick={onViewFullPost}>
+              <ViewAllComments>View all 200 comments</ViewAllComments>
+            </button>
+          )}
 
-        <PostTimestamp />
-      </Box>
-    </DetailsContainer>
+          <PostTimestamp />
+        </Box>
+      </DetailsContainer>
+
+      {isFullPost && (
+        <CommentDrawer
+          isOpen={isCommentDrawerOpen}
+          onClose={handleCloseCommentDrawer}
+        />
+      )}
+    </>
   );
 };
 
