@@ -1,4 +1,3 @@
-import CloseIcon from "@mui/icons-material/Close";
 import { Box, Drawer, styled, Typography } from "@mui/material";
 import React from "react";
 
@@ -23,7 +22,7 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.grey[300]}`,
 }));
 
-const CommentsContainer = styled(Box)(({ theme }) => ({
+const CommentsContainer = styled(Box)(() => ({
   flex: 1,
 }));
 
