@@ -1,8 +1,6 @@
-import CloseIcon from "@mui/icons-material/Close";
 import { Box, styled } from "@mui/material";
 import React, { useState } from "react";
 
-import Modal from "@/components/Modal";
 import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
 
@@ -14,14 +12,6 @@ const HomeContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(3),
   padding: `${theme.spacing(3)} 0px`,
   overflow: "auto",
-}));
-
-const CloseButtonContainer = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  top: 40,
-  right: 50,
-  zIndex: theme.zIndex.modal + 10,
-  cursor: "pointer",
 }));
 
 const Home: React.FC = () => {
@@ -41,17 +31,10 @@ const Home: React.FC = () => {
         return <DefaultPost key={num} onViewFullPost={handleOpenFullPost} />;
       })}
 
-      <Modal open={isFullPostOpen} onClose={handleCloseFullPost}>
-        <FullPost />
-      </Modal>
-
-      {isFullPostOpen && (
-        <button onClick={handleCloseFullPost}>
-          <CloseButtonContainer>
-            <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
-          </CloseButtonContainer>
-        </button>
-      )}
+      <FullPost
+        isFullPostOpen={isFullPostOpen}
+        onCloseFullPost={handleCloseFullPost}
+      />
     </HomeContainer>
   );
 };
