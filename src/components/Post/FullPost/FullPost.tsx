@@ -44,11 +44,7 @@ const DetailSummaryContainer = styled(Box)(({ theme }) => ({
   padding: `0px ${theme.spacing(1)}`,
 }));
 
-type RequiredProps = {};
-
-type DefaultProps = {};
-
-const FullPost: React.FC<RequiredProps & DefaultProps> = () => {
+const FullPost: React.FC = () => {
   const isMediumScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("lg")
   );
@@ -88,7 +84,5 @@ const FullPost: React.FC<RequiredProps & DefaultProps> = () => {
     </FullPostContainer>
   );
 };
-
-FullPost.defaultProps = {} as DefaultProps;
 
 export default FullPost;

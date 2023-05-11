@@ -12,14 +12,12 @@ const DetailsContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-const ViewAllComments = styled(Typography)(({ theme }) => ({
+const ViewAllComments = styled(Typography)(() => ({
   fontSize: "0.85rem",
   "&:hover": {
     opacity: "50%",
   },
 }));
-
-type RequiredProps = {};
 
 type DefaultProps = {
   onViewFullPost?: () => void;
@@ -27,7 +25,7 @@ type DefaultProps = {
   isExtraSmallScreen?: boolean;
 };
 
-const Details: React.FC<RequiredProps & DefaultProps> = ({
+const Details: React.FC<DefaultProps> = ({
   isFullPost,
   isExtraSmallScreen,
   onViewFullPost,

@@ -16,19 +16,12 @@ type RequiredProps = {
   children: React.ReactNode;
 };
 
-type DefaultProps = {};
-const Modal: React.FC<RequiredProps & DefaultProps> = ({
-  children,
-  open,
-  onClose,
-}) => {
+const Modal: React.FC<RequiredProps> = ({ children, open, onClose }) => {
   return (
     <ModalBase open={open} onClose={onClose}>
       <ChildrenContainer>{children}</ChildrenContainer>
     </ModalBase>
   );
 };
-
-Modal.defaultProps = {} as DefaultProps;
 
 export default Modal;

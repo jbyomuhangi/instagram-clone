@@ -15,11 +15,7 @@ const RightQuickActionContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-type RequiredProps = {};
-
-type DefaultProps = {};
-
-const QuickActions: React.FC<RequiredProps & DefaultProps> = ({}) => {
+const QuickActions: React.FC = () => {
   return (
     <QuickActionsContainer>
       <RightQuickActionContainer>
@@ -32,7 +28,5 @@ const QuickActions: React.FC<RequiredProps & DefaultProps> = ({}) => {
     </QuickActionsContainer>
   );
 };
-
-QuickActions.defaultProps = {} as DefaultProps;
 
 export default QuickActions;

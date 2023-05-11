@@ -20,11 +20,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-type RequiredProps = {};
-
-type DefaultProps = {};
-
-const CommentInput: React.FC<RequiredProps & DefaultProps> = ({}) => {
+const CommentInput: React.FC = () => {
   return (
     <StyledTextField
       placeholder="Add comment..."
@@ -37,7 +33,5 @@ const CommentInput: React.FC<RequiredProps & DefaultProps> = ({}) => {
     />
   );
 };
-
-CommentInput.defaultProps = {} as DefaultProps;
 
 export default CommentInput;
