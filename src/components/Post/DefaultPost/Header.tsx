@@ -8,7 +8,7 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   padding: theme.spacing(1),
   alignItems: "center",
-  borderBottom: `1px solid ${theme.palette.grey[300]}`,
+  borderBottom: `1px solid ${theme.palette.border.main}`,
 }));
 
 const UserInfoContainer = styled(Box)(({ theme }) => ({

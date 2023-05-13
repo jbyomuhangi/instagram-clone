@@ -1,4 +1,4 @@
-import { Box, Drawer, styled, Typography } from "@mui/material";
+import { Box, Drawer, styled, Typography, useTheme } from "@mui/material";
 import React from "react";
 
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
@@ -19,7 +19,7 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   padding: theme.spacing(1),
-  borderBottom: `1px solid ${theme.palette.grey[300]}`,
+  borderBottom: `1px solid ${theme.palette.border.main}`,
 }));
 
 const CommentsContainer = styled(Box)(() => ({
@@ -32,6 +32,8 @@ type DefaultProps = {
 };
 
 const CommentDrawer: React.FC<DefaultProps> = ({ isOpen, onClose }) => {
+  const theme = useTheme();
+
   return (
     <StyledDrawer anchor="bottom" open={isOpen} onClose={onClose}>
       <DrawerBodyContainer>
@@ -39,7 +41,9 @@ const CommentDrawer: React.FC<DefaultProps> = ({ isOpen, onClose }) => {
           <Typography>Comments</Typography>
 
           <button onClick={onClose}>
-            <Typography>Close</Typography>
+            <Typography sx={{ color: theme.palette.link.main }}>
+              Close
+            </Typography>
           </button>
         </HeaderContainer>
 

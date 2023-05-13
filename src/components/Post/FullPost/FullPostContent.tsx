@@ -33,7 +33,7 @@ const FooterContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.spacing(1),
-  borderTop: `1px solid ${theme.palette.grey[300]}`,
+  borderTop: `1px solid ${theme.palette.border.main}`,
   paddingTop: theme.spacing(2),
 }));
 

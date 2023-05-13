@@ -1,5 +1,5 @@
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
-import { styled, TextField, Typography } from "@mui/material";
+import { styled, TextField, Typography, useTheme } from "@mui/material";
 import React from "react";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -11,7 +11,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      border: `1px solid ${theme.palette.grey[300]} !important`,
+      border: `1px solid ${theme.palette.border.main} !important`,
     },
   },
 
@@ -21,6 +21,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 const CommentInput: React.FC = () => {
+  const theme = useTheme();
+
   return (
     <StyledTextField
       placeholder="Add comment..."
@@ -28,7 +30,9 @@ const CommentInput: React.FC = () => {
       maxRows={4}
       InputProps={{
         startAdornment: <SentimentSatisfiedOutlinedIcon />,
-        endAdornment: <Typography>Post</Typography>,
+        endAdornment: (
+          <Typography sx={{ color: theme.palette.link.main }}>Post</Typography>
+        ),
       }}
     />
   );

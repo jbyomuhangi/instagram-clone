@@ -10,8 +10,8 @@ const DefaultPostContainer = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   maxWidth: "400px",
   width: "100%",
-  borderRadius: "10px",
-  border: `1px solid ${theme.palette.grey[400]}`,
+  borderRadius: "5px",
+  border: `1px solid ${theme.palette.border.main}`,
   backgroundColor: theme.palette.common.white,
 }));
 
