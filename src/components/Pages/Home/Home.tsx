@@ -5,13 +5,12 @@ import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
 import UserAvatar from "@/components/UserAvatar";
 
-const HomeContainer = styled(Box)(({ theme }) => ({
+const HomeContentContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   gap: theme.spacing(3),
   padding: `${theme.spacing(3)} 0px`,
-  overflow: "auto",
 }));
 
 const StoriesSectionContainer = styled(Box)(({ theme }) => ({
@@ -41,14 +40,14 @@ const Home: React.FC = () => {
   };
 
   return (
-    <HomeContainer>
+    <HomeContentContainer>
       <StoriesSectionContainer>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num) => {
           return <UserAvatar key={num} />;
         })}
       </StoriesSectionContainer>
 
-      {[1, 2, 3, 4, 5].map((num) => {
+      {[1, 2, 3, 4, 5, 6].map((num) => {
         return <DefaultPost key={num} onViewFullPost={handleOpenFullPost} />;
       })}
 
@@ -56,7 +55,7 @@ const Home: React.FC = () => {
         isFullPostOpen={isFullPostOpen}
         onCloseFullPost={handleCloseFullPost}
       />
-    </HomeContainer>
+    </HomeContentContainer>
   );
 };
 
