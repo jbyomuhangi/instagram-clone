@@ -1,4 +1,4 @@
-import { Typography, styled } from "@mui/material";
+import { SxProps, Typography, styled } from "@mui/material";
 import React from "react";
 
 const UserInfoContainer = styled(Typography)(() => ({
@@ -6,20 +6,22 @@ const UserInfoContainer = styled(Typography)(() => ({
   textOverflow: "ellipsis",
   display: "-webkit-box",
   WebkitBoxOrient: "vertical",
+  wordBreak: "break-word",
 }));
 
 type RequiredProps = {
   children: React.ReactNode;
 };
 
-type DefaultProps = { lineClamp?: number };
+type DefaultProps = { lineClamp?: number; sx?: SxProps };
 
 const TextPreview: React.FC<RequiredProps & DefaultProps> = ({
   children,
   lineClamp,
+  sx,
 }) => {
   return (
-    <UserInfoContainer sx={{ WebkitLineClamp: lineClamp }}>
+    <UserInfoContainer sx={{ WebkitLineClamp: lineClamp, ...sx }}>
       {children}
     </UserInfoContainer>
   );

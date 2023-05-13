@@ -1,7 +1,9 @@
-import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ModeCommentOutlinedIcon from "@mui/icons-material/ModeCommentOutlined";
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
+import {
+  BookmarkBorderOutlined,
+  FavoriteBorderOutlined,
+  ModeCommentOutlined,
+  SendOutlined,
+} from "@mui/icons-material";
 import { Box, styled } from "@mui/material";
 import React from "react";
 
@@ -23,16 +25,16 @@ const QuickActions: React.FC<DefaultProps> = ({ onCommentClick }) => {
   return (
     <QuickActionsContainer>
       <RightQuickActionContainer>
-        <FavoriteBorderOutlinedIcon />
+        <FavoriteBorderOutlined />
 
         <button onClick={onCommentClick}>
-          <ModeCommentOutlinedIcon />
+          <ModeCommentOutlined />
         </button>
 
-        <SendOutlinedIcon />
+        <SendOutlined />
       </RightQuickActionContainer>
 
-      <BookmarkBorderOutlinedIcon />
+      <BookmarkBorderOutlined />
     </QuickActionsContainer>
   );
 };
