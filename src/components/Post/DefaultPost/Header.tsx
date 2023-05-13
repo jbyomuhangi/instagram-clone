@@ -1,6 +1,8 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { Avatar, Box, Typography, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import React from "react";
+
+import UserAvatar from "@/components/UserAvatar";
 
 const HeaderContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -21,7 +23,7 @@ const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <UserInfoContainer>
-        <Avatar>J</Avatar>
+        <UserAvatar />
         <Typography>username here</Typography>
       </UserInfoContainer>
 
