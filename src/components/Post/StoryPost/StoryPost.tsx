@@ -5,8 +5,8 @@ import React from "react";
 const StoryPostContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  height: "70vh",
-  width: "400px",
+  height: "90vh",
+  aspectRatio: "2 / 3",
   borderRadius: "5px",
   backgroundColor: theme.palette.common.black,
 }));
