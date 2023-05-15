@@ -20,13 +20,13 @@ const ViewAllComments = styled(Typography)(() => ({
   },
 }));
 
-type DefaultProps = {
+type DetailsProps = {
   isFullPost?: boolean;
   isExtraSmallScreen?: boolean;
   onViewFullPost?: () => void;
 };
 
-const Details: React.FC<DefaultProps> = ({
+const Details: React.FC<DetailsProps> = ({
   isFullPost,
   isExtraSmallScreen,
   onViewFullPost,
@@ -76,7 +76,5 @@ const Details: React.FC<DefaultProps> = ({
     </>
   );
 };
-
-Details.defaultProps = {} as DefaultProps;
 
 export default Details;

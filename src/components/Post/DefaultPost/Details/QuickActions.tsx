@@ -17,11 +17,11 @@ const RightQuickActionContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-type DefaultProps = {
+type QuickActionsProps = {
   onCommentClick?: () => void;
 };
 
-const QuickActions: React.FC<DefaultProps> = ({ onCommentClick }) => {
+const QuickActions: React.FC<QuickActionsProps> = ({ onCommentClick }) => {
   return (
     <QuickActionsContainer>
       <RightQuickActionContainer>

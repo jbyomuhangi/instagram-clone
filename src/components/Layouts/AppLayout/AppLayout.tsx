@@ -7,9 +7,9 @@ const AppLayoutContainer = styled(Box)(({ theme }) => ({
   overflow: "auto",
 }));
 
-interface AppLayoutProps {
+type AppLayoutProps = {
   children: React.ReactNode;
-}
+};
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return <AppLayoutContainer>{children}</AppLayoutContainer>;

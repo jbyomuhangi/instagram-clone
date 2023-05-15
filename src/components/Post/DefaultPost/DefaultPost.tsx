@@ -22,12 +22,12 @@ const MediaContainer = styled(Box)(() => ({
   height: "100vh",
 }));
 
-type DefaultProps = {
+type DefaultPostProps = {
   isFullPost?: boolean;
   onViewFullPost?: () => void;
 };
 
-const DefaultPost: React.FC<DefaultProps> = ({
+const DefaultPost: React.FC<DefaultPostProps> = ({
   isFullPost,
   onViewFullPost,
 }) => {
@@ -53,7 +53,5 @@ const DefaultPost: React.FC<DefaultProps> = ({
     </DefaultPostContainer>
   );
 };
-
-DefaultPost.defaultProps = {} as DefaultProps;
 
 export default DefaultPost;

@@ -26,12 +26,12 @@ const CommentsContainer = styled(Box)(() => ({
   flex: 1,
 }));
 
-type DefaultProps = {
+type CommentDrawerProps = {
   isOpen?: boolean;
   onClose?: () => void;
 };
 
-const CommentDrawer: React.FC<DefaultProps> = ({ isOpen, onClose }) => {
+const CommentDrawer: React.FC<CommentDrawerProps> = ({ isOpen, onClose }) => {
   const theme = useTheme();
 
   return (

@@ -10,13 +10,13 @@ const ChildrenContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
 }));
 
-type RequiredProps = {
+type ModalProps = {
+  children: React.ReactNode;
   open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
 };
 
-const Modal: React.FC<RequiredProps> = ({ children, open, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ children, open, onClose }) => {
   return (
     <ModalBase open={open} onClose={onClose}>
       <ChildrenContainer>{children}</ChildrenContainer>

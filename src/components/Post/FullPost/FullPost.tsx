@@ -12,12 +12,12 @@ const CloseButton = styled("button")(({ theme }) => ({
   zIndex: theme.zIndex.modal + 1,
 }));
 
-type RequiredProps = {
+type FullPostProps = {
   isFullPostOpen: boolean;
   onCloseFullPost: () => void;
 };
 
-const FullPost: React.FC<RequiredProps> = ({
+const FullPost: React.FC<FullPostProps> = ({
   isFullPostOpen,
   onCloseFullPost,
 }) => {

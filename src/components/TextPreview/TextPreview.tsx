@@ -9,15 +9,15 @@ const UserInfoContainer = styled(Typography)(() => ({
   wordBreak: "break-word",
 }));
 
-type RequiredProps = {
+type TextPreviewProps = {
   children: React.ReactNode;
+  lineClamp?: number;
+  sx?: SxProps;
 };
 
-type DefaultProps = { lineClamp?: number; sx?: SxProps };
-
-const TextPreview: React.FC<RequiredProps & DefaultProps> = ({
+const TextPreview: React.FC<TextPreviewProps> = ({
   children,
-  lineClamp,
+  lineClamp = 1,
   sx,
 }) => {
   return (
@@ -26,7 +26,5 @@ const TextPreview: React.FC<RequiredProps & DefaultProps> = ({
     </UserInfoContainer>
   );
 };
-
-TextPreview.defaultProps = { lineClamp: 1 } as DefaultProps;
 
 export default TextPreview;
