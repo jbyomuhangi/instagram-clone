@@ -1,17 +1,9 @@
 import { faker } from "@faker-js/faker";
 
-type User = { id: string; userName: string };
+import { Post, User } from "@/types/dataTypes";
 
 export const createUser = (): User => {
   return { id: faker.string.uuid(), userName: faker.person.firstName() };
-};
-
-type Post = {
-  id: string;
-  userId: string;
-  caption: string;
-  likes: number;
-  createdAt: Date;
 };
 
 export const createPost = (user: User): Post => {
