@@ -1,35 +1,71 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import type { RootState } from "@/store";
+import { Post, User } from "@/types/dataTypes";
+import { generateRandomNumber } from "@/utils/commonUtils";
+import { createPost, createUser } from "@/utils/fakeDataUtils";
+
+type UserMap = { [key: string]: User };
+type PostsMap = { [key: string]: Post };
 
 interface DataState {
-  value: number;
+  usersMap: UserMap;
+  postsMap: PostsMap;
+  postIds: string[];
 }
 
-const initialState: DataState = {
-  value: 0,
+const getInitialState = (): DataState => {
+  /* Create users */
+  const usersMap: UserMap = {};
+  for (let i = 0; i < 5; i++) {
+    const user = createUser();
+    usersMap[user.id] = user;
+  }
+
+  /* Create posts */
+  const postsMap: PostsMap = {};
+  const userIds = Object.keys(usersMap);
+
+  for (let i = 0; i < 20; i++) {
+    const userIndex = generateRandomNumber({ min: 0, max: 5 });
+    const userKey = userIds[userIndex];
+    const user = usersMap[userKey];
+
+    const post = createPost(user);
+    postsMap[post.id] = post;
+  }
+
+  const postIds = Object.keys(postsMap);
+
+  return { usersMap, postsMap, postIds };
 };
+
+const initialState: DataState = getInitialState();
 
 export const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    setUsers: (state, action: PayloadAction<User[]>) => {
+      const usersObject: UserMap = {};
+
+      action.payload.forEach((user) => {
+        usersObject[user.id] = user;
+      });
+
+      state.usersMap = usersObject;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } = dataSlice.actions;
+export const dataActions = dataSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.data.value;
+export const selectUser = (id: string) => (state: RootState) =>
+  state.data.usersMap[id];
+
+export const selectPostIds = (state: RootState) => state.data.postIds;
+
+export const selectPost = (id: string) => (state: RootState) =>
+  state.data.postsMap[id];
 
 export default dataSlice.reducer;

@@ -1,12 +1,13 @@
 import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React from "react";
 
-import DefaultPost from "@/components/Post/DefaultPost";
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
 import LikeCount from "@/components/Post/DefaultPost/Details/LikeCount";
 import PostTimestamp from "@/components/Post/DefaultPost/Details/PostTimestamp";
 import QuickActions from "@/components/Post/DefaultPost/Details/QuickActions";
 import Header from "@/components/Post/DefaultPost/Header";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectPost, selectUser } from "@/reducers/dataReducer";
 
 const FullPostContentContainer = styled(Box)(() => ({
   width: "80vw",
@@ -44,18 +45,19 @@ const DetailSummaryContainer = styled(Box)(({ theme }) => ({
   padding: `0px ${theme.spacing(1)}`,
 }));
 
-const FullPostContent: React.FC = () => {
+type FullPostContentDefaultProps = {
+  postId: string;
+};
+
+const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
+  postId,
+}) => {
+  const post = useAppSelector(selectPost(postId));
+  const user = useAppSelector(selectUser(post.userId));
+
   const isMediumScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("lg")
   );
-
-  const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("sm")
-  );
-
-  if (isExtraSmallScreen) {
-    return <DefaultPost isFullPost />;
-  }
 
   return (
     <FullPostContentContainer>
@@ -64,7 +66,7 @@ const FullPostContent: React.FC = () => {
       <DetailsContainer
         sx={{ ...(isMediumScreen && { width: "unset", flex: 1 }) }}
       >
-        <Header />
+        <Header userName={user.userName} />
 
         <CommentContainer></CommentContainer>
 
@@ -73,7 +75,7 @@ const FullPostContent: React.FC = () => {
             <QuickActions />
 
             <Box>
-              <LikeCount />
+              <LikeCount likes={post.likes} />
               <PostTimestamp />
             </Box>
           </DetailSummaryContainer>
@@ -85,4 +87,4 @@ const FullPostContent: React.FC = () => {
   );
 };
 
-export default FullPostContent;
+export default FullPostContentDefault;

@@ -11,7 +11,7 @@ export const createPost = (user: User): Post => {
     id: faker.string.uuid(),
     userId: user.id,
     caption: faker.lorem.lines({ min: 1, max: 5 }),
-    likes: faker.number.int({ min: 0 }),
+    likes: faker.number.int({ min: 0, max: 1000 }),
     createdAt: faker.date.recent({ days: 90 }),
   };
 };

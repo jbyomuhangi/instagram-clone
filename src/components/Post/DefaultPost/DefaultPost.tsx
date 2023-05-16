@@ -1,6 +1,9 @@
 import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React from "react";
 
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectPost, selectUser } from "@/reducers/dataReducer";
+import { empty } from "@/utils/noopUtils";
 import CommentInput from "./CommentInput";
 import Details from "./Details/Details";
 import Header from "./Header";
@@ -23,14 +26,19 @@ const MediaContainer = styled(Box)(() => ({
 }));
 
 type DefaultPostProps = {
+  postId: string;
   isFullPost?: boolean;
-  onViewFullPost?: () => void;
+  onViewFullPost?: (postId: string) => void;
 };
 
 const DefaultPost: React.FC<DefaultPostProps> = ({
+  postId,
   isFullPost,
-  onViewFullPost,
+  onViewFullPost = empty,
 }) => {
+  const post = useAppSelector(selectPost(postId));
+  const user = useAppSelector(selectUser(post.userId));
+
   const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
@@ -39,14 +47,16 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
     <DefaultPostContainer
       sx={{ ...(isFullPost && { width: "80vw", border: "unset" }) }}
     >
-      <Header />
+      <Header userName={user.userName} />
 
       <MediaContainer></MediaContainer>
 
       <Details
         isFullPost={isFullPost}
         isExtraSmallScreen={isExtraSmallScreen}
-        onViewFullPost={onViewFullPost}
+        caption={post.caption}
+        LikeCountProps={{ likes: post.likes }}
+        onViewFullPost={() => onViewFullPost(post.id)}
       />
 
       {!isExtraSmallScreen && <CommentInput />}

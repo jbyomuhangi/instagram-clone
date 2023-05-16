@@ -20,13 +20,17 @@ const UserInfoContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
 }));
 
-const Header: React.FC = () => {
+type HeaderProps = {
+  userName: string;
+};
+
+const Header: React.FC<HeaderProps> = ({ userName }) => {
   return (
     <HeaderContainer>
       <UserInfoContainer>
         <UserAvatar />
 
-        <TextPreview>jbyomuhangi</TextPreview>
+        <TextPreview>{userName}</TextPreview>
       </UserInfoContainer>
 
       <Box>

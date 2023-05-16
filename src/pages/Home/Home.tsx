@@ -3,6 +3,8 @@ import React, { useState } from "react";
 
 import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectPostIds } from "@/reducers/dataReducer";
 import StorySection from "./StorySection";
 
 const HomeContentContainer = styled(Box)(({ theme }) => ({
@@ -14,28 +16,33 @@ const HomeContentContainer = styled(Box)(({ theme }) => ({
 }));
 
 const Home: React.FC = () => {
-  const [isFullPostOpen, setIsFullPostOpen] = useState<boolean>(false);
+  const [fullPostId, setFullPostId] = useState<string | undefined>();
 
-  const handleOpenFullPost = () => {
-    setIsFullPostOpen(true);
+  const postIds = useAppSelector(selectPostIds);
+
+  const handleOpenFullPost = (postId: string) => {
+    setFullPostId(postId);
   };
 
   const handleCloseFullPost = () => {
-    setIsFullPostOpen(false);
+    setFullPostId(undefined);
   };
 
   return (
     <HomeContentContainer>
       <StorySection />
 
-      {[1, 2, 3, 4, 5, 6].map((num) => {
-        return <DefaultPost key={num} onViewFullPost={handleOpenFullPost} />;
+      {postIds.map((postId) => {
+        return (
+          <DefaultPost
+            key={postId}
+            postId={postId}
+            onViewFullPost={handleOpenFullPost}
+          />
+        );
       })}
 
-      <FullPost
-        isFullPostOpen={isFullPostOpen}
-        onCloseFullPost={handleCloseFullPost}
-      />
+      <FullPost postId={fullPostId} onCloseFullPost={handleCloseFullPost} />
     </HomeContentContainer>
   );
 };

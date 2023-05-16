@@ -1,8 +1,9 @@
 import { Box, Typography, styled } from "@mui/material";
 import React, { useState } from "react";
 
+import TextPreview from "@/components/TextPreview";
 import CommentDrawer from "./CommentDrawer";
-import LikeCount from "./LikeCount";
+import LikeCount, { LikeCountProps } from "./LikeCount";
 import PostTimestamp from "./PostTimestamp";
 import QuickActions from "./QuickActions";
 
@@ -23,12 +24,16 @@ const ViewAllComments = styled(Typography)(() => ({
 type DetailsProps = {
   isFullPost?: boolean;
   isExtraSmallScreen?: boolean;
+  caption?: string;
+  LikeCountProps: LikeCountProps;
   onViewFullPost?: () => void;
 };
 
 const Details: React.FC<DetailsProps> = ({
   isFullPost,
   isExtraSmallScreen,
+  caption,
+  LikeCountProps,
   onViewFullPost,
 }) => {
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] =
@@ -42,7 +47,8 @@ const Details: React.FC<DetailsProps> = ({
     setIsCommentDrawerOpen(false);
   };
 
-  const isCaptionVisible = !isFullPost || (isFullPost && !isExtraSmallScreen);
+  const isCaptionVisible =
+    caption && (!isFullPost || (isFullPost && !isExtraSmallScreen));
   const isVAllCommentsVisible =
     !isFullPost || (isFullPost && !isExtraSmallScreen);
 
@@ -52,9 +58,10 @@ const Details: React.FC<DetailsProps> = ({
         <QuickActions
           onCommentClick={isFullPost ? handleOpenCommentDrawer : onViewFullPost}
         />
-        <LikeCount />
 
-        {isCaptionVisible && <Typography>caption goes here</Typography>}
+        <LikeCount {...LikeCountProps} />
+
+        {isCaptionVisible && <TextPreview lineClamp={2}>{caption}</TextPreview>}
 
         <Box>
           {isVAllCommentsVisible && (

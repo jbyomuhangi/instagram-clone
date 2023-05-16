@@ -3,7 +3,7 @@ import { styled } from "@mui/material";
 import React from "react";
 
 import Modal from "@/components/Modal";
-import FullPostContent from "./FullPostContent";
+import FullPostContent from "./FullPostContent/FullPostContent";
 
 const CloseButton = styled("button")(({ theme }) => ({
   position: "absolute",
@@ -13,25 +13,22 @@ const CloseButton = styled("button")(({ theme }) => ({
 }));
 
 type FullPostProps = {
-  isFullPostOpen: boolean;
+  postId?: string;
   onCloseFullPost: () => void;
 };
 
-const FullPost: React.FC<FullPostProps> = ({
-  isFullPostOpen,
-  onCloseFullPost,
-}) => {
+const FullPost: React.FC<FullPostProps> = ({ postId, onCloseFullPost }) => {
+  if (!postId) return null;
+
   return (
     <>
-      <Modal open={isFullPostOpen} onClose={onCloseFullPost}>
-        <FullPostContent />
+      <Modal open onClose={onCloseFullPost}>
+        <FullPostContent postId={postId} />
       </Modal>
 
-      {isFullPostOpen && (
-        <CloseButton onClick={onCloseFullPost}>
-          <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
-        </CloseButton>
-      )}
+      <CloseButton onClick={onCloseFullPost}>
+        <CloseIcon sx={{ color: "white", fontSize: "2rem" }} />
+      </CloseButton>
     </>
   );
 };
