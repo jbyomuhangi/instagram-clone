@@ -3,7 +3,7 @@ import React from "react";
 import { Provider } from "react-redux";
 
 import AppLayout from "./components/Layouts/AppLayout";
-import Home from "./components/Pages/Home";
+import Home from "./pages/Home";
 import store from "./store";
 import theme from "./theme";
 
