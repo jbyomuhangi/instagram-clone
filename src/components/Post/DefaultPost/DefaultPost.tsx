@@ -49,7 +49,12 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
     >
       <Header userName={user.userName} />
 
-      <MediaContainer></MediaContainer>
+      <MediaContainer>
+        <img
+          src={post.image}
+          style={{ height: "100%", width: "100%", objectFit: "contain" }}
+        />
+      </MediaContainer>
 
       <Details
         isFullPost={isFullPost}

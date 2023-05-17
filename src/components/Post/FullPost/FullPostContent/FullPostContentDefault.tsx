@@ -61,7 +61,12 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
 
   return (
     <FullPostContentContainer>
-      <MediaContainer></MediaContainer>
+      <MediaContainer>
+        <img
+          src={post.image}
+          style={{ height: "100%", width: "100%", objectFit: "contain" }}
+        />
+      </MediaContainer>
 
       <DetailsContainer
         sx={{ ...(isMediumScreen && { width: "unset", flex: 1 }) }}
