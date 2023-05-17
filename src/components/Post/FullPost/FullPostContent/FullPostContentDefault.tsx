@@ -76,7 +76,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
 
             <Box>
               <LikeCount likes={post.likes} />
-              <PostTimestamp />
+              <PostTimestamp createdAt={post.createdAt} />
             </Box>
           </DetailSummaryContainer>
 

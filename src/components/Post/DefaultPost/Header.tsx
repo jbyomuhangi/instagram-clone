@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
   return (
     <HeaderContainer>
       <UserInfoContainer>
-        <UserAvatar />
+        <UserAvatar userName={userName} />
 
         <TextPreview>{userName}</TextPreview>
       </UserInfoContainer>

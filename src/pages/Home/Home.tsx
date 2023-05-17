@@ -5,7 +5,6 @@ import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { selectPostIds } from "@/reducers/dataReducer";
-import StorySection from "./StorySection";
 
 const HomeContentContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -30,8 +29,6 @@ const Home: React.FC = () => {
 
   return (
     <HomeContentContainer>
-      <StorySection />
-
       {postIds.map((postId) => {
         return (
           <DefaultPost

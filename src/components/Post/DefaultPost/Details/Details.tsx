@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TextPreview from "@/components/TextPreview";
 import CommentDrawer from "./CommentDrawer";
 import LikeCount, { LikeCountProps } from "./LikeCount";
-import PostTimestamp from "./PostTimestamp";
+import PostTimestamp, { PostTimestampProps } from "./PostTimestamp";
 import QuickActions from "./QuickActions";
 
 const DetailsContainer = styled(Box)(({ theme }) => ({
@@ -26,6 +26,7 @@ type DetailsProps = {
   isExtraSmallScreen?: boolean;
   caption?: string;
   LikeCountProps: LikeCountProps;
+  PostTimestampProps: PostTimestampProps;
   onViewFullPost?: () => void;
 };
 
@@ -34,6 +35,7 @@ const Details: React.FC<DetailsProps> = ({
   isExtraSmallScreen,
   caption,
   LikeCountProps,
+  PostTimestampProps,
   onViewFullPost,
 }) => {
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] =
@@ -70,7 +72,7 @@ const Details: React.FC<DetailsProps> = ({
             </button>
           )}
 
-          <PostTimestamp />
+          <PostTimestamp {...PostTimestampProps} />
         </Box>
       </DetailsContainer>
 
