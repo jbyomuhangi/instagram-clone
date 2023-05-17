@@ -1,5 +1,6 @@
 import { Box, styled } from "@mui/material";
 import React, { useState } from "react";
+import { Virtuoso } from "react-virtuoso";
 
 import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
@@ -7,11 +8,15 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { selectPostIds } from "@/reducers/dataReducer";
 
 const HomeContentContainer = styled(Box)(({ theme }) => ({
+  height: "100%",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
-  gap: theme.spacing(3),
-  padding: `${theme.spacing(3)} 0px`,
+}));
+
+const PostContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  paddingBottom: theme.spacing(3),
 }));
 
 const Home: React.FC = () => {
@@ -27,17 +32,17 @@ const Home: React.FC = () => {
     setFullPostId(undefined);
   };
 
+  const itemContent = (_index: number, item: string) => {
+    return (
+      <PostContainer>
+        <DefaultPost postId={item} onViewFullPost={handleOpenFullPost} />
+      </PostContainer>
+    );
+  };
+
   return (
     <HomeContentContainer>
-      {postIds.map((postId) => {
-        return (
-          <DefaultPost
-            key={postId}
-            postId={postId}
-            onViewFullPost={handleOpenFullPost}
-          />
-        );
-      })}
+      <Virtuoso data={postIds} itemContent={itemContent} />
 
       <FullPost postId={fullPostId} onCloseFullPost={handleCloseFullPost} />
     </HomeContentContainer>
