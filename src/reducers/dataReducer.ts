@@ -25,14 +25,16 @@ const getInitialState = (): DataState => {
   /* Create posts */
   const postsMap: PostsMap = {};
   const userIds = Object.keys(usersMap);
+  let prevPost: Post | undefined;
 
   for (let i = 0; i < 20; i++) {
     const userIndex = generateRandomNumber({ min: 0, max: 5 });
     const userKey = userIds[userIndex];
     const user = usersMap[userKey];
 
-    const post = createPost(user);
+    const post = createPost({ user, prevPostDate: prevPost?.createdAt });
     postsMap[post.id] = post;
+    prevPost = post;
   }
 
   const postIds = Object.keys(postsMap);

@@ -8,8 +8,9 @@ const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
   const formattedTime = useMemo(() => {
     if (!createdAt) return undefined;
 
-    const now = moment();
-    const duration = moment.duration(now.diff(moment(createdAt)));
+    const nowMoment = moment();
+    const createdAtMoment = moment(createdAt);
+    const duration = moment.duration(nowMoment.diff(createdAtMoment));
 
     if (duration.asHours() < 1) {
       return `${Math.round(duration.asMinutes())} minutes ago`;
@@ -23,7 +24,7 @@ const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
       return `${Math.round(duration.asDays())} days ago`;
     }
 
-    if (duration.asYears() < 1) {
+    if (nowMoment.isSame(createdAtMoment, "year")) {
       return new Intl.DateTimeFormat(undefined, {
         day: "numeric",
         month: "short",
