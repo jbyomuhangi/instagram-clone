@@ -16,6 +16,8 @@ const DetailsContainer = styled(Box)(({ theme }) => ({
 
 const ViewAllComments = styled(Typography)(() => ({
   fontSize: "0.85rem",
+  opacity: "70%",
+
   "&:hover": {
     opacity: "50%",
   },

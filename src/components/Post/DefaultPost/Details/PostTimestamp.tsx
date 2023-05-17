@@ -39,7 +39,11 @@ const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
   }, [createdAt]);
 
   if (!formattedTime) return null;
-  return <Typography sx={{ fontSize: "0.85rem" }}>{formattedTime}</Typography>;
+  return (
+    <Typography sx={{ fontSize: "0.85rem", opacity: "60%" }}>
+      {formattedTime}
+    </Typography>
+  );
 };
 
 export default PostTimestamp;
