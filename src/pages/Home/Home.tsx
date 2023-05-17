@@ -7,7 +7,7 @@ import FullPost from "@/components/Post/FullPost";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { dataActions, selectPostIds } from "@/reducers/dataReducer";
 
-const HomeContentContainer = styled(Box)(({ theme }) => ({
+const HomeContentContainer = styled(Box)(() => ({
   height: "100%",
   display: "flex",
   flexDirection: "column",
