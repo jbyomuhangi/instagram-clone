@@ -16,7 +16,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 
   "& .MuiInputBase-input": {
-    margin: `0px ${theme.spacing(1)}`,
+    margin: 0,
+    padding: `0px ${theme.spacing(1)}`,
   },
 }));
 
