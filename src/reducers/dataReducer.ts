@@ -2,11 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import type { RootState } from "@/store";
 import { Post, User } from "@/types/dataTypes";
-import { generateRandomNumber } from "@/utils/commonUtils";
-import { createPost, createUser } from "@/utils/fakeDataUtils";
+import { createPostMap, createUserMap } from "@/utils/fakeDataUtils";
 
-type UserMap = { [key: string]: User };
-type PostsMap = { [key: string]: Post };
+export type UserMap = { [key: string]: User };
+export type PostsMap = { [key: string]: Post };
 
 interface DataState {
   usersMap: UserMap;
@@ -16,27 +15,10 @@ interface DataState {
 
 const getInitialState = (): DataState => {
   /* Create users */
-  const usersMap: UserMap = {};
-  for (let i = 0; i < 5; i++) {
-    const user = createUser();
-    usersMap[user.id] = user;
-  }
+  const usersMap = createUserMap();
 
   /* Create posts */
-  const postsMap: PostsMap = {};
-  const userIds = Object.keys(usersMap);
-  let prevPost: Post | undefined;
-
-  for (let i = 0; i < 20; i++) {
-    const userIndex = generateRandomNumber({ min: 0, max: 5 });
-    const userKey = userIds[userIndex];
-    const user = usersMap[userKey];
-
-    const post = createPost({ user, prevPostDate: prevPost?.createdAt });
-    postsMap[post.id] = post;
-    prevPost = post;
-  }
-
+  const postsMap = createPostMap({ usersMap });
   const postIds = Object.keys(postsMap);
 
   return { usersMap, postsMap, postIds };
@@ -48,14 +30,20 @@ export const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setUsers: (state, action: PayloadAction<User[]>) => {
-      const usersObject: UserMap = {};
-
-      action.payload.forEach((user) => {
-        usersObject[user.id] = user;
+    getMorePosts: (state) => {
+      const lastPostId = state.postIds.slice(-1)[0];
+      const lastPost = state.postsMap[lastPostId];
+      const newPostsMap = createPostMap({
+        usersMap: state.usersMap,
+        postAfter: lastPost,
       });
+      const newPostIds = Object.keys(newPostsMap);
 
-      state.usersMap = usersObject;
+      return {
+        ...state,
+        postsMap: { ...state.postsMap, ...newPostsMap },
+        postIds: [...state.postIds, ...newPostIds],
+      };
     },
   },
 });

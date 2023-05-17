@@ -10,5 +10,5 @@ export type Post = {
   image: string;
   caption: string;
   likes: number;
-  createdAt: Date;
+  createdAt: string;
 };

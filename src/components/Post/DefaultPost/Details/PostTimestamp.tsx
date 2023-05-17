@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import moment from "moment";
 import React, { useMemo } from "react";
 
-export type PostTimestampProps = { createdAt?: Date };
+export type PostTimestampProps = { createdAt?: string };
 
 const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
   const formattedTime = useMemo(() => {
@@ -24,18 +24,20 @@ const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
       return `${Math.round(duration.asDays())} days ago`;
     }
 
+    const createdAtDate = new Date(createdAt);
+
     if (nowMoment.isSame(createdAtMoment, "year")) {
       return new Intl.DateTimeFormat(undefined, {
         day: "numeric",
         month: "short",
-      }).format(createdAt);
+      }).format(createdAtDate);
     }
 
     return new Intl.DateTimeFormat(undefined, {
       day: "numeric",
       month: "short",
       year: "numeric",
-    }).format(createdAt);
+    }).format(createdAtDate);
   }, [createdAt]);
 
   if (!formattedTime) return null;

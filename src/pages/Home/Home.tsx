@@ -4,8 +4,8 @@ import { Virtuoso } from "react-virtuoso";
 
 import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { selectPostIds } from "@/reducers/dataReducer";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { dataActions, selectPostIds } from "@/reducers/dataReducer";
 
 const HomeContentContainer = styled(Box)(({ theme }) => ({
   height: "100%",
@@ -20,6 +20,7 @@ const PostContainer = styled(Box)(({ theme }) => ({
 }));
 
 const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [fullPostId, setFullPostId] = useState<string | undefined>();
 
   const postIds = useAppSelector(selectPostIds);
@@ -40,9 +41,17 @@ const Home: React.FC = () => {
     );
   };
 
+  const handleEndReached = () => {
+    dispatch(dataActions.getMorePosts());
+  };
+
   return (
     <HomeContentContainer>
-      <Virtuoso data={postIds} itemContent={itemContent} />
+      <Virtuoso
+        data={postIds}
+        itemContent={itemContent}
+        endReached={handleEndReached}
+      />
 
       <FullPost postId={fullPostId} onCloseFullPost={handleCloseFullPost} />
     </HomeContentContainer>
