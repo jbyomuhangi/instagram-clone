@@ -3,7 +3,7 @@ import { Box, styled } from "@mui/material";
 import React from "react";
 
 import TextPreview from "@/components/TextPreview";
-import UserAvatar from "@/components/UserAvatar";
+import UserAvatar, { UserAvatarProps } from "@/components/UserAvatar";
 
 const HeaderContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -22,13 +22,14 @@ const UserInfoContainer = styled(Box)(({ theme }) => ({
 
 type HeaderProps = {
   userName: string;
+  UserAvatarProps: UserAvatarProps;
 };
 
-const Header: React.FC<HeaderProps> = ({ userName }) => {
+const Header: React.FC<HeaderProps> = ({ userName, UserAvatarProps }) => {
   return (
     <HeaderContainer>
       <UserInfoContainer>
-        <UserAvatar userName={userName} />
+        <UserAvatar {...UserAvatarProps} />
 
         <TextPreview>{userName}</TextPreview>
       </UserInfoContainer>

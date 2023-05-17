@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import React from "react";
 
-type UserAvatarProps = {
+export type UserAvatarProps = {
   userName?: string;
   imageSrc?: string;
 };

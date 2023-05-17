@@ -1,4 +1,8 @@
-export type User = { id: string; userName: string };
+export type User = {
+  id: string;
+  userName: string;
+  profilePictureImage: string;
+};
 
 export type Post = {
   id: string;

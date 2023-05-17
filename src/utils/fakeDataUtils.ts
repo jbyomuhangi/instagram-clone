@@ -4,7 +4,11 @@ import { Post, User } from "@/types/dataTypes";
 import { generateRandomNumber } from "@/utils/commonUtils";
 
 export const createUser = (): User => {
-  return { id: faker.string.uuid(), userName: faker.person.firstName() };
+  return {
+    id: faker.string.uuid(),
+    userName: faker.person.firstName(),
+    profilePictureImage: faker.image.avatar(),
+  };
 };
 
 type createPostInput = { user: User; prevPostDate?: Date };

@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/reduxHooks";
 import { selectPost, selectUser } from "@/reducers/dataReducer";
 import { empty } from "@/utils/noopUtils";
 import CommentInput from "./CommentInput";
-import Details from "./Details/Details";
+import Details from "./Details";
 import Header from "./Header";
 
 const DefaultPostContainer = styled(Box)(({ theme }) => ({
@@ -47,7 +47,13 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
     <DefaultPostContainer
       sx={{ ...(isFullPost && { width: "80vw", border: "unset" }) }}
     >
-      <Header userName={user.userName} />
+      <Header
+        userName={user.userName}
+        UserAvatarProps={{
+          userName: user.userName,
+          imageSrc: user.profilePictureImage,
+        }}
+      />
 
       <MediaContainer>
         <img

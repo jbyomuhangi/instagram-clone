@@ -71,7 +71,13 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
       <DetailsContainer
         sx={{ ...(isMediumScreen && { width: "unset", flex: 1 }) }}
       >
-        <Header userName={user.userName} />
+        <Header
+          userName={user.userName}
+          UserAvatarProps={{
+            userName: user.userName,
+            imageSrc: user.profilePictureImage,
+          }}
+        />
 
         <CommentContainer></CommentContainer>
 
