@@ -12,14 +12,14 @@ export const createUser = (): User => {
   };
 };
 
-type createPostInput = { user: User; prevPostCreatedAt?: string };
+type createPostInput = { userId: string; prevPostCreatedAt?: string };
 export const createPost = ({
-  user,
+  userId,
   prevPostCreatedAt,
 }: createPostInput): Post => {
   return {
     id: faker.string.uuid(),
-    userId: user.id,
+    userId,
     image: faker.image.urlPicsumPhotos(),
     caption: faker.lorem.lines({ min: 1, max: 5 }),
     likes: faker.number.int({ min: 0, max: 1000 }),
@@ -62,7 +62,10 @@ export const createPostMap = ({
     const userKey = userIds[userIndex];
     const user = usersMap[userKey];
 
-    const post = createPost({ user, prevPostCreatedAt: prevPost?.createdAt });
+    const post = createPost({
+      userId: user.id,
+      prevPostCreatedAt: prevPost?.createdAt,
+    });
     postsMap[post.id] = post;
     prevPost = post;
   }

@@ -12,3 +12,12 @@ export type Post = {
   likes: number;
   createdAt: string;
 };
+
+export type Comment = {
+  id: string;
+  userId: string;
+  postId: string;
+  comment: string;
+  likes: number;
+  createdAt: string;
+};
