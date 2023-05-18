@@ -40,7 +40,7 @@ const TextPreview: React.FC<TextPreviewProps> = ({
   const onResize = useDebounce((element: HTMLParagraphElement) => {
     const isOverFlown = element.scrollHeight > element.clientHeight;
     setHasOverflow(isOverFlown);
-  }, 500);
+  }, 100);
 
   const ref = useResizeObserver({
     ignoreResize: !isExpandable || isExpanded,
