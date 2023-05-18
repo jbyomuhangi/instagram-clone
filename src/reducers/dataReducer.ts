@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import type { RootState } from "@/store";
-import { Post, User } from "@/types/dataTypes";
-import { createPostMap, createUserMap } from "@/utils/fakeDataUtils";
+import { Comment, Post, User } from "@/types/dataTypes";
+import { createPosts, createUserMap } from "@/utils/fakeDataUtils";
 
 export type UserMap = { [key: string]: User };
 export type PostsMap = { [key: string]: Post };
+export type CommentsMap = { [key: string]: Comment };
 
 interface DataState {
   usersMap: UserMap;
   postsMap: PostsMap;
   postIds: string[];
+  commentsMap: CommentsMap;
 }
 
 const getInitialState = (): DataState => {
@@ -18,10 +20,11 @@ const getInitialState = (): DataState => {
   const usersMap = createUserMap();
 
   /* Create posts */
-  const postsMap = createPostMap({ usersMap });
-  const postIds = Object.keys(postsMap);
+  const { postsMap, postIds, commentsMap } = createPosts({
+    userIds: Object.keys(usersMap),
+  });
 
-  return { usersMap, postsMap, postIds };
+  return { usersMap, postsMap, postIds, commentsMap };
 };
 
 const initialState: DataState = getInitialState();
@@ -33,16 +36,17 @@ export const dataSlice = createSlice({
     getMorePosts: (state) => {
       const lastPostId = state.postIds.slice(-1)[0];
       const lastPost = state.postsMap[lastPostId];
-      const newPostsMap = createPostMap({
-        usersMap: state.usersMap,
+
+      const { postsMap, postIds, commentsMap } = createPosts({
+        userIds: Object.keys(state.usersMap),
         postAfter: lastPost,
       });
-      const newPostIds = Object.keys(newPostsMap);
 
       return {
         ...state,
-        postsMap: { ...state.postsMap, ...newPostsMap },
-        postIds: [...state.postIds, ...newPostIds],
+        postsMap: { ...state.postsMap, ...postsMap },
+        commentsMap: { ...state.commentsMap, ...commentsMap },
+        postIds: [...state.postIds, ...postIds],
       };
     },
   },

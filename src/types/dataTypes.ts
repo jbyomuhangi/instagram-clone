@@ -9,6 +9,7 @@ export type Post = {
   userId: string;
   image: string;
   caption: string;
+  commentIds: string[];
   likes: number;
   createdAt: string;
 };
