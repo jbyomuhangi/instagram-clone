@@ -18,7 +18,7 @@ const ViewAllComments = styled(Typography)(() => ({
   fontSize: "0.85rem",
   opacity: "70%",
 
-  "&:hover": {
+  ":hover": {
     opacity: "50%",
   },
 }));
@@ -65,7 +65,11 @@ const Details: React.FC<DetailsProps> = ({
 
         <LikeCount {...LikeCountProps} />
 
-        {isCaptionVisible && <TextPreview lineClamp={2}>{caption}</TextPreview>}
+        {isCaptionVisible && (
+          <TextPreview isExpandable lineClamp={2}>
+            {caption}
+          </TextPreview>
+        )}
 
         <Box>
           {isVAllCommentsVisible && (
