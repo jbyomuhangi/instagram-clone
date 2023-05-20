@@ -1,46 +1,17 @@
 import { Typography } from "@mui/material";
-import moment from "moment";
 import React, { useMemo } from "react";
+
+import { formatTimestamp } from "@/utils/dateUtils";
 
 export type PostTimestampProps = { createdAt?: string };
 
 const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
   const formattedTime = useMemo(() => {
-    if (!createdAt) return undefined;
-
-    const nowMoment = moment();
-    const createdAtMoment = moment(createdAt);
-    const duration = moment.duration(nowMoment.diff(createdAtMoment));
-
-    if (duration.asHours() < 1) {
-      return `${Math.round(duration.asMinutes())} minutes ago`;
-    }
-
-    if (duration.asDays() < 1) {
-      return `${Math.round(duration.asHours())} hours ago`;
-    }
-
-    if (duration.asDays() < 7) {
-      return `${Math.round(duration.asDays())} days ago`;
-    }
-
-    const createdAtDate = new Date(createdAt);
-
-    if (nowMoment.isSame(createdAtMoment, "year")) {
-      return new Intl.DateTimeFormat(undefined, {
-        day: "numeric",
-        month: "short",
-      }).format(createdAtDate);
-    }
-
-    return new Intl.DateTimeFormat(undefined, {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    }).format(createdAtDate);
+    return formatTimestamp(createdAt);
   }, [createdAt]);
 
   if (!formattedTime) return null;
+
   return (
     <Typography sx={{ fontSize: "0.85rem", opacity: "60%" }}>
       {formattedTime}
