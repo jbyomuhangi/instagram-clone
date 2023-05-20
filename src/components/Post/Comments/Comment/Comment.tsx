@@ -31,7 +31,7 @@ const PostedTime = styled(Typography)(({ theme }) => ({
   color: theme.palette.grey[700],
 }));
 
-const Likes = styled(Typography)(({ theme }) => ({
+const Likes = styled(Typography)(() => ({
   fontSize: "0.85rem",
   fontWeight: "bold",
 }));
