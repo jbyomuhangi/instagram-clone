@@ -1,10 +1,10 @@
 import { Box, Typography, styled } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
+import RelativeTimestamp from "@/components/RelativeTimestamp";
 import TextPreview from "@/components/TextPreview";
 import CommentDrawer from "./CommentDrawer";
 import LikeCount, { LikeCountProps } from "./LikeCount";
-import PostTimestamp, { PostTimestampProps } from "./PostTimestamp";
 import QuickActions from "./QuickActions";
 
 const DetailsContainer = styled(Box)(({ theme }) => ({
@@ -28,8 +28,8 @@ type DetailsProps = {
   isExtraSmallScreen?: boolean;
   caption?: string;
   commentIds?: string[];
+  createdAt?: string;
   LikeCountProps: LikeCountProps;
-  PostTimestampProps: PostTimestampProps;
   onViewFullPost?: () => void;
 };
 
@@ -38,8 +38,8 @@ const Details: React.FC<DetailsProps> = ({
   isExtraSmallScreen,
   caption,
   commentIds = [],
+  createdAt,
   LikeCountProps,
-  PostTimestampProps,
   onViewFullPost,
 }) => {
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] =
@@ -88,7 +88,7 @@ const Details: React.FC<DetailsProps> = ({
             </button>
           )}
 
-          <PostTimestamp {...PostTimestampProps} />
+          <RelativeTimestamp timestamp={createdAt} />
         </Box>
       </DetailsContainer>
 

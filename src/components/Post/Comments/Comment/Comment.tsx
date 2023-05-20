@@ -1,11 +1,11 @@
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, styled, Typography } from "@mui/material";
-import React, { useMemo } from "react";
+import React from "react";
 
+import RelativeTimestamp from "@/components/RelativeTimestamp";
 import UserAvatar from "@/components/UserAvatar";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { selectComment, selectUser } from "@/reducers/dataReducer";
-import { formatTimestamp } from "@/utils/dateUtils";
 
 const CommentContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -26,11 +26,6 @@ const CommentDetails = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-const PostedTime = styled(Typography)(({ theme }) => ({
-  fontSize: "0.85rem",
-  color: theme.palette.text.secondary,
-}));
-
 const Likes = styled(Typography)(({ theme }) => ({
   fontSize: "0.85rem",
   color: theme.palette.text.secondary,
@@ -44,10 +39,6 @@ type CommentProps = {
 const Comment: React.FC<CommentProps> = ({ commentId }) => {
   const comment = useAppSelector(selectComment(commentId));
   const user = useAppSelector(selectUser(comment.userId));
-
-  const formattedTime = useMemo(() => {
-    return formatTimestamp(comment.createdAt);
-  }, [comment.createdAt]);
 
   return (
     <CommentContainer>
@@ -63,7 +54,7 @@ const Comment: React.FC<CommentProps> = ({ commentId }) => {
         <CommentText>{comment.comment}</CommentText>
 
         <CommentDetails>
-          <PostedTime>{formattedTime}</PostedTime>
+          <RelativeTimestamp timestamp={comment.createdAt} />
           <Likes>{comment.likes} likes</Likes>
         </CommentDetails>
       </CommentBodyContainer>

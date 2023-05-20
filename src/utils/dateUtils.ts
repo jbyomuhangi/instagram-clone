@@ -1,10 +1,10 @@
 import moment from "moment";
 
-export const formatTimestamp = (createdAt?: string) => {
-  if (!createdAt) return undefined;
+export const formatTimestamp = (timestamp?: string) => {
+  if (!timestamp) return undefined;
 
   const nowMoment = moment();
-  const createdAtMoment = moment(createdAt);
+  const createdAtMoment = moment(timestamp);
   const duration = moment.duration(nowMoment.diff(createdAtMoment));
 
   if (duration.asHours() < 1) {
@@ -19,7 +19,7 @@ export const formatTimestamp = (createdAt?: string) => {
     return `${Math.round(duration.asDays())} days ago`;
   }
 
-  const createdAtDate = new Date(createdAt);
+  const createdAtDate = new Date(timestamp);
 
   if (nowMoment.isSame(createdAtMoment, "year")) {
     return new Intl.DateTimeFormat(undefined, {

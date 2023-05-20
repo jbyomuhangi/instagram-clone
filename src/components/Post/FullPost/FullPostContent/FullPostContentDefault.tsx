@@ -4,9 +4,9 @@ import React from "react";
 import Comments from "@/components/Post/Comments";
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
 import LikeCount from "@/components/Post/DefaultPost/Details/LikeCount";
-import PostTimestamp from "@/components/Post/DefaultPost/Details/PostTimestamp";
 import QuickActions from "@/components/Post/DefaultPost/Details/QuickActions";
 import Header from "@/components/Post/DefaultPost/Header";
+import RelativeTimestamp from "@/components/RelativeTimestamp";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { selectPost, selectUser } from "@/reducers/dataReducer";
 
@@ -91,7 +91,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
 
             <Box>
               <LikeCount likes={post.likes} />
-              <PostTimestamp createdAt={post.createdAt} />
+              <RelativeTimestamp timestamp={post.createdAt} />
             </Box>
           </DetailSummaryContainer>
 
