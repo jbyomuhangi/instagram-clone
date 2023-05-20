@@ -12,7 +12,13 @@ const Comments: React.FC<CommentsProps> = ({ commentIds }) => {
     return <Comment commentId={item} />;
   };
 
-  return <Virtuoso data={commentIds} itemContent={itemContent} />;
+  return (
+    <Virtuoso
+      className="hide-scrollbar"
+      data={commentIds}
+      itemContent={itemContent}
+    />
+  );
 };
 
 export default Comments;

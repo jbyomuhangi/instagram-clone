@@ -16,9 +16,6 @@ const StorySectionContainer = styled(Box)(({ theme }) => ({
   borderRadius: "5px",
   padding: theme.spacing(1),
   overflow: "auto",
-  "::-webkit-scrollbar": {
-    display: "none",
-  },
 }));
 
 const UserIconContainer = styled(Box)(({ theme }) => ({
