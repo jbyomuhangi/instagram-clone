@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 
 import { formatTimestamp } from "@/utils/dateUtils";
@@ -6,6 +6,8 @@ import { formatTimestamp } from "@/utils/dateUtils";
 export type PostTimestampProps = { createdAt?: string };
 
 const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
+  const theme = useTheme();
+
   const formattedTime = useMemo(() => {
     return formatTimestamp(createdAt);
   }, [createdAt]);
@@ -13,7 +15,9 @@ const PostTimestamp: React.FC<PostTimestampProps> = ({ createdAt }) => {
   if (!formattedTime) return null;
 
   return (
-    <Typography sx={{ fontSize: "0.85rem", opacity: "60%" }}>
+    <Typography
+      sx={{ fontSize: "0.85rem", color: theme.palette.text.secondary }}
+    >
       {formattedTime}
     </Typography>
   );

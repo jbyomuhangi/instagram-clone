@@ -12,9 +12,9 @@ const UserInfoContainer = styled(Typography)(() => ({
   wordBreak: "break-word",
 }));
 
-const MoreButton = styled(Typography)(() => ({
+const MoreButton = styled(Typography)(({ theme }) => ({
   fontSize: "0.85rem",
-  opacity: "70%",
+  color: theme.palette.text.secondary,
 
   ":hover": {
     opacity: "50%",

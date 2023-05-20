@@ -14,9 +14,9 @@ const DetailsContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-const ViewAllComments = styled(Typography)(() => ({
+const ViewAllComments = styled(Typography)(({ theme }) => ({
   fontSize: "0.85rem",
-  opacity: "70%",
+  color: theme.palette.text.secondary,
 
   ":hover": {
     opacity: "50%",

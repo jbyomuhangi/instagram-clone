@@ -28,11 +28,12 @@ const CommentDetails = styled(Box)(({ theme }) => ({
 
 const PostedTime = styled(Typography)(({ theme }) => ({
   fontSize: "0.85rem",
-  color: theme.palette.grey[700],
+  color: theme.palette.text.secondary,
 }));
 
-const Likes = styled(Typography)(() => ({
+const Likes = styled(Typography)(({ theme }) => ({
   fontSize: "0.85rem",
+  color: theme.palette.text.secondary,
   fontWeight: "bold",
 }));
 
