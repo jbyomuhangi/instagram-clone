@@ -62,4 +62,7 @@ export const selectPostIds = (state: RootState) => state.data.postIds;
 export const selectPost = (id: string) => (state: RootState) =>
   state.data.postsMap[id];
 
+export const selectComment = (id: string) => (state: RootState) =>
+  state.data.commentsMap[id];
+
 export default dataSlice.reducer;

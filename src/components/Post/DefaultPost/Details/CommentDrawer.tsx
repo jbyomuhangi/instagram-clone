@@ -1,6 +1,7 @@
 import { Box, Drawer, styled, Typography, useTheme } from "@mui/material";
 import React from "react";
 
+import Comments from "@/components/Post/Comments";
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
 
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
@@ -22,16 +23,22 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.border.main}`,
 }));
 
-const CommentsContainer = styled(Box)(() => ({
+const CommentsSectionContainer = styled(Box)(({ theme }) => ({
   flex: 1,
+  padding: theme.spacing(1),
 }));
 
 type CommentDrawerProps = {
   isOpen?: boolean;
+  commentIds?: string[];
   onClose?: () => void;
 };
 
-const CommentDrawer: React.FC<CommentDrawerProps> = ({ isOpen, onClose }) => {
+const CommentDrawer: React.FC<CommentDrawerProps> = ({
+  isOpen,
+  commentIds = [],
+  onClose,
+}) => {
   const theme = useTheme();
 
   return (
@@ -47,7 +54,9 @@ const CommentDrawer: React.FC<CommentDrawerProps> = ({ isOpen, onClose }) => {
           </button>
         </HeaderContainer>
 
-        <CommentsContainer></CommentsContainer>
+        <CommentsSectionContainer>
+          <Comments commentIds={commentIds} />
+        </CommentsSectionContainer>
 
         <CommentInput />
       </DrawerBodyContainer>

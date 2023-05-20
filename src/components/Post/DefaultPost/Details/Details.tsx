@@ -27,6 +27,7 @@ type DetailsProps = {
   isFullPost?: boolean;
   isExtraSmallScreen?: boolean;
   caption?: string;
+  commentIds?: string[];
   LikeCountProps: LikeCountProps;
   PostTimestampProps: PostTimestampProps;
   onViewFullPost?: () => void;
@@ -36,6 +37,7 @@ const Details: React.FC<DetailsProps> = ({
   isFullPost,
   isExtraSmallScreen,
   caption,
+  commentIds = [],
   LikeCountProps,
   PostTimestampProps,
   onViewFullPost,
@@ -53,8 +55,10 @@ const Details: React.FC<DetailsProps> = ({
 
   const isCaptionVisible =
     caption && (!isFullPost || (isFullPost && !isExtraSmallScreen));
+
   const isVAllCommentsVisible =
-    !isFullPost || (isFullPost && !isExtraSmallScreen);
+    commentIds.length > 0 &&
+    (!isFullPost || (isFullPost && !isExtraSmallScreen));
 
   return (
     <>
@@ -74,7 +78,9 @@ const Details: React.FC<DetailsProps> = ({
         <Box>
           {isVAllCommentsVisible && (
             <button onClick={onViewFullPost}>
-              <ViewAllComments>View all 200 comments</ViewAllComments>
+              <ViewAllComments>
+                View all {commentIds.length} comments
+              </ViewAllComments>
             </button>
           )}
 
@@ -85,6 +91,7 @@ const Details: React.FC<DetailsProps> = ({
       {isFullPost && (
         <CommentDrawer
           isOpen={isCommentDrawerOpen}
+          commentIds={commentIds}
           onClose={handleCloseCommentDrawer}
         />
       )}

@@ -1,6 +1,7 @@
 import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React from "react";
 
+import Comments from "@/components/Post/Comments";
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
 import LikeCount from "@/components/Post/DefaultPost/Details/LikeCount";
 import PostTimestamp from "@/components/Post/DefaultPost/Details/PostTimestamp";
@@ -26,8 +27,9 @@ const DetailsContainer = styled(Box)(() => ({
   flexDirection: "column",
 }));
 
-const CommentContainer = styled(Box)(() => ({
+const CommentSectionContainer = styled(Box)(({ theme }) => ({
   flex: 1,
+  padding: theme.spacing(1),
 }));
 
 const FooterContainer = styled(Box)(({ theme }) => ({
@@ -79,7 +81,9 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
           }}
         />
 
-        <CommentContainer></CommentContainer>
+        <CommentSectionContainer>
+          <Comments commentIds={post.commentIds} />
+        </CommentSectionContainer>
 
         <FooterContainer>
           <DetailSummaryContainer>

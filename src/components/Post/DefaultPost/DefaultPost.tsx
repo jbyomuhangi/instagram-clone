@@ -66,6 +66,7 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
         isFullPost={isFullPost}
         isExtraSmallScreen={isExtraSmallScreen}
         caption={post.caption}
+        commentIds={post.commentIds}
         LikeCountProps={{ likes: post.likes }}
         PostTimestampProps={{ createdAt: post.createdAt }}
         onViewFullPost={() => onViewFullPost(post.id)}
