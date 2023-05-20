@@ -1,5 +1,5 @@
 import { Box, Typography, styled } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import TextPreview from "@/components/TextPreview";
 import CommentDrawer from "./CommentDrawer";
@@ -52,6 +52,10 @@ const Details: React.FC<DetailsProps> = ({
   const handleCloseCommentDrawer = () => {
     setIsCommentDrawerOpen(false);
   };
+
+  useEffect(() => {
+    if (isFullPost) handleOpenCommentDrawer();
+  }, [isFullPost]);
 
   const isCaptionVisible =
     caption && (!isFullPost || (isFullPost && !isExtraSmallScreen));
