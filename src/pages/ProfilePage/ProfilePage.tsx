@@ -1,6 +1,10 @@
 import { Box, styled } from "@mui/material";
 import React from "react";
+import { useParams } from "react-router-dom";
 
+import AppLayout from "@/components/Layouts/AppLayout";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectUser } from "@/reducers/dataReducer";
 import ProfileBody from "./ProfileBody";
 import ProfileSummary from "./ProfileSummary";
 
@@ -19,14 +23,20 @@ const ProfileContentContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ProfilePage: React.FC = () => {
-  return (
-    <ProfilePageContainer>
-      <ProfileContentContainer>
-        <ProfileSummary />
+  const { userId = "" } = useParams();
 
-        <ProfileBody />
-      </ProfileContentContainer>
-    </ProfilePageContainer>
+  const user = useAppSelector(selectUser(userId));
+
+  return (
+    <AppLayout>
+      <ProfilePageContainer>
+        <ProfileContentContainer>
+          <ProfileSummary />
+
+          <ProfileBody />
+        </ProfileContentContainer>
+      </ProfilePageContainer>
+    </AppLayout>
   );
 };
 

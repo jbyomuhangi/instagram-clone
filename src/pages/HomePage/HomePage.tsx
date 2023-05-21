@@ -2,6 +2,7 @@ import { Box, styled } from "@mui/material";
 import React, { useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 
+import AppLayout from "@/components/Layouts/AppLayout";
 import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
@@ -40,7 +41,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <Box>
+    <AppLayout>
       <Virtuoso
         useWindowScroll
         data={postIds}
@@ -49,7 +50,7 @@ const HomePage: React.FC = () => {
       />
 
       <FullPost postId={fullPostId} onCloseFullPost={handleCloseFullPost} />
-    </Box>
+    </AppLayout>
   );
 };
 
