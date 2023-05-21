@@ -2,10 +2,6 @@ import { Box, styled } from "@mui/material";
 import React from "react";
 import { VirtuosoGrid } from "react-virtuoso";
 
-const ProfileBodyContainer = styled(Box)(() => ({
-  flex: 1,
-}));
-
 const ListContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexWrap: "wrap",
@@ -20,15 +16,16 @@ const ItemContainer = styled(Box)(() => ({
 
 const ProfileBody: React.FC = () => {
   return (
-    <ProfileBodyContainer>
+    <Box>
       <VirtuosoGrid
-        totalCount={100}
+        useWindowScroll
+        totalCount={50}
         components={{
           Item: ItemContainer,
           List: ListContainer as typeof Box,
         }}
       />
-    </ProfileBodyContainer>
+    </Box>
   );
 };
 

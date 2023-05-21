@@ -7,12 +7,6 @@ import FullPost from "@/components/Post/FullPost";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { dataActions, selectPostIds } from "@/reducers/dataReducer";
 
-const HomeContentContainer = styled(Box)(() => ({
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-}));
-
 const PostContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
@@ -46,15 +40,16 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <HomeContentContainer>
+    <Box>
       <Virtuoso
+        useWindowScroll
         data={postIds}
         itemContent={itemContent}
         endReached={handleEndReached}
       />
 
       <FullPost postId={fullPostId} onCloseFullPost={handleCloseFullPost} />
-    </HomeContentContainer>
+    </Box>
   );
 };
 

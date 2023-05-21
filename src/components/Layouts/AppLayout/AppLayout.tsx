@@ -2,9 +2,8 @@ import { Box, styled } from "@mui/material";
 import React from "react";
 
 const AppLayoutContainer = styled(Box)(({ theme }) => ({
-  height: "100vh",
+  minHeight: "100vh",
   backgroundColor: theme.palette.grey[100],
-  overflow: "auto",
 }));
 
 type AppLayoutProps = {
