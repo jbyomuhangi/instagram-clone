@@ -19,7 +19,7 @@ const PostContainer = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(3),
 }));
 
-const Home: React.FC = () => {
+const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const [fullPostId, setFullPostId] = useState<string | undefined>();
 
@@ -58,4 +58,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default HomePage;
