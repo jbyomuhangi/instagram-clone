@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 
@@ -25,6 +25,14 @@ const ProfilePage: React.FC = () => {
   const { userId = "" } = useParams();
 
   const user = useAppSelector(selectUser(userId));
+
+  if (!user) {
+    return (
+      <Box>
+        <Typography>User not found</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box>

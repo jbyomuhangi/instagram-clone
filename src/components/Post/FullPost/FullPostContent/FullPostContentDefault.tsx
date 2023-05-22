@@ -76,6 +76,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
         <Header
           userName={user?.userName}
           UserAvatarProps={{
+            userId: user?.id,
             userName: user?.userName,
             imageSrc: user?.profilePictureImage,
           }}

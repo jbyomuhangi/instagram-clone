@@ -50,6 +50,7 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
       <Header
         userName={user?.userName}
         UserAvatarProps={{
+          userId: user?.id,
           userName: user?.userName,
           imageSrc: user?.profilePictureImage,
         }}

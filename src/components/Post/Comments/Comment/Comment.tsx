@@ -44,6 +44,7 @@ const Comment: React.FC<CommentProps> = ({ commentId }) => {
     <CommentContainer>
       <Box>
         <UserAvatar
+          userId={user?.id}
           userName={user?.userName}
           imageSrc={user?.profilePictureImage}
           sx={{ width: "30px", height: "30px" }}
