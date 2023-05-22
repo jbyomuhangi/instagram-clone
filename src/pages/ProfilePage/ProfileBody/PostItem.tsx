@@ -22,6 +22,7 @@ const OverlayContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  flexWrap: "wrap",
   gap: theme.spacing(2),
   backgroundColor: alpha(theme.palette.common.black, 0.5),
 }));
@@ -30,7 +31,7 @@ const Stat = styled(Typography)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   color: theme.palette.common.white,
-  gap: theme.spacing(1),
+  gap: theme.spacing(0.5),
   fontWeight: "bold",
 }));
 
