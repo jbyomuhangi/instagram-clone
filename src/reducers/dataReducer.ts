@@ -56,19 +56,30 @@ export const dataActions = dataSlice.actions;
 
 export const selectUser =
   (id = "") =>
-  (state: RootState): User | undefined =>
-    state.data.usersMap[id];
+  (state: RootState): User | undefined => {
+    return state.data.usersMap[id];
+  };
 
 export const selectPostIds = (state: RootState) => state.data.postIds;
 
 export const selectPost =
   (id = "") =>
-  (state: RootState): Post | undefined =>
-    state.data.postsMap[id];
+  (state: RootState): Post | undefined => {
+    return state.data.postsMap[id];
+  };
 
 export const selectComment =
   (id = "") =>
-  (state: RootState): Comment | undefined =>
-    state.data.commentsMap[id];
+  (state: RootState): Comment | undefined => {
+    return state.data.commentsMap[id];
+  };
+
+export const selectUserPostIds =
+  (userId = "") =>
+  (state: RootState): string[] => {
+    return state.data.postIds.filter(
+      (postId) => state.data.postsMap[postId].userId === userId
+    );
+  };
 
 export default dataSlice.reducer;

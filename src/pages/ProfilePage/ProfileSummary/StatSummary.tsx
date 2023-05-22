@@ -7,17 +7,27 @@ const StatSummaryContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(5),
 }));
 
-const StatSummary: React.FC = () => {
+export type StatSummaryProps = {
+  postCount?: number;
+  followerCount?: number;
+  followingCount?: number;
+};
+
+const StatSummary: React.FC<StatSummaryProps> = ({
+  postCount = 0,
+  followerCount = 0,
+  followingCount = 0,
+}) => {
   return (
     <StatSummaryContainer>
       <Typography>
-        <strong>17</strong> posts
+        <strong>{postCount}</strong> posts
       </Typography>
       <Typography>
-        <strong>200</strong> followers
+        <strong>{followerCount}</strong> followers
       </Typography>
       <Typography>
-        <strong>200</strong> following
+        <strong>{followingCount}</strong> following
       </Typography>
     </StatSummaryContainer>
   );

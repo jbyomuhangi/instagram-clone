@@ -1,14 +1,20 @@
-import { faker } from "@faker-js/faker";
+import { faker, fakerTH } from "@faker-js/faker";
 
 import { CommentsMap, PostsMap, UserMap } from "@/reducers/dataReducer";
 import { Comment, Post, User } from "@/types/dataTypes";
 import { generateRandomNumber } from "@/utils/commonUtils";
 
 export const createUser = (): User => {
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.firstName();
+
   return {
     id: faker.string.uuid(),
-    userName: faker.person.firstName(),
+    userName: `${firstName[0]}${lastName}`,
+    fullName: `${firstName} ${lastName}`,
     profilePictureImage: faker.image.avatar(),
+    followerCount: faker.number.int({ min: 10, max: 872 }),
+    followingCount: faker.number.int({ min: 1, max: 1000 }),
   };
 };
 

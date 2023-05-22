@@ -2,6 +2,9 @@ export type User = {
   id: string;
   userName: string;
   profilePictureImage: string;
+  fullName: string;
+  followerCount: number;
+  followingCount: number;
 };
 
 export type Post = {
