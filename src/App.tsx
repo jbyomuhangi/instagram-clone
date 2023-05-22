@@ -3,6 +3,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import AppLayout from "./components/Layouts/AppLayout";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import store from "./store";
@@ -14,8 +15,10 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/profile/:userId" element={<ProfilePage />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
