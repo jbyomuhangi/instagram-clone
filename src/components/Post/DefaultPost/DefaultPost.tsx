@@ -28,7 +28,7 @@ const MediaContainer = styled(Box)(() => ({
 type DefaultPostProps = {
   postId: string;
   isFullPost?: boolean;
-  onViewFullPost?: (postId: string) => void;
+  onViewFullPost?: (postId?: string) => void;
 };
 
 const DefaultPost: React.FC<DefaultPostProps> = ({
@@ -37,7 +37,7 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
   onViewFullPost = empty,
 }) => {
   const post = useAppSelector(selectPost(postId));
-  const user = useAppSelector(selectUser(post.userId));
+  const user = useAppSelector(selectUser(post?.userId));
 
   const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
@@ -48,16 +48,16 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
       sx={{ ...(isFullPost && { width: "80vw", border: "unset" }) }}
     >
       <Header
-        userName={user.userName}
+        userName={user?.userName}
         UserAvatarProps={{
-          userName: user.userName,
-          imageSrc: user.profilePictureImage,
+          userName: user?.userName,
+          imageSrc: user?.profilePictureImage,
         }}
       />
 
       <MediaContainer>
         <img
-          src={post.image}
+          src={post?.image}
           style={{ height: "100%", width: "100%", objectFit: "contain" }}
         />
       </MediaContainer>
@@ -65,11 +65,11 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
       <Details
         isFullPost={isFullPost}
         isExtraSmallScreen={isExtraSmallScreen}
-        caption={post.caption}
-        commentIds={post.commentIds}
-        createdAt={post.createdAt}
-        LikeCountProps={{ likes: post.likes }}
-        onViewFullPost={() => onViewFullPost(post.id)}
+        caption={post?.caption}
+        commentIds={post?.commentIds}
+        createdAt={post?.createdAt}
+        LikeCountProps={{ likes: post?.likes }}
+        onViewFullPost={() => onViewFullPost(post?.id)}
       />
 
       {!isExtraSmallScreen && <CommentInput />}

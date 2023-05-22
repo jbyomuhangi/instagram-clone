@@ -38,24 +38,24 @@ type CommentProps = {
 
 const Comment: React.FC<CommentProps> = ({ commentId }) => {
   const comment = useAppSelector(selectComment(commentId));
-  const user = useAppSelector(selectUser(comment.userId));
+  const user = useAppSelector(selectUser(comment?.userId));
 
   return (
     <CommentContainer>
       <Box>
         <UserAvatar
-          userName={user.userName}
-          imageSrc={user.profilePictureImage}
+          userName={user?.userName}
+          imageSrc={user?.profilePictureImage}
           sx={{ width: "30px", height: "30px" }}
         />
       </Box>
 
       <CommentBodyContainer>
-        <CommentText>{comment.comment}</CommentText>
+        <CommentText>{comment?.comment}</CommentText>
 
         <CommentDetails>
-          <RelativeTimestamp timestamp={comment.createdAt} />
-          <Likes>{comment.likes} likes</Likes>
+          <RelativeTimestamp timestamp={comment?.createdAt} />
+          {comment?.likes && <Likes>{comment.likes} likes</Likes>}
         </CommentDetails>
       </CommentBodyContainer>
 

@@ -20,7 +20,8 @@ const HomePage: React.FC = () => {
 
   const postIds = useAppSelector(selectPostIds);
 
-  const handleOpenFullPost = (postId: string) => {
+  const handleOpenFullPost = (postId?: string) => {
+    if (!postId) return;
     setFullPostId(postId);
   };
 

@@ -55,7 +55,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
   postId,
 }) => {
   const post = useAppSelector(selectPost(postId));
-  const user = useAppSelector(selectUser(post.userId));
+  const user = useAppSelector(selectUser(post?.userId));
 
   const isMediumScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("lg")
@@ -65,7 +65,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
     <FullPostContentContainer>
       <MediaContainer>
         <img
-          src={post.image}
+          src={post?.image}
           style={{ height: "100%", width: "100%", objectFit: "contain" }}
         />
       </MediaContainer>
@@ -74,15 +74,15 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
         sx={{ ...(isMediumScreen && { width: "unset", flex: 1 }) }}
       >
         <Header
-          userName={user.userName}
+          userName={user?.userName}
           UserAvatarProps={{
-            userName: user.userName,
-            imageSrc: user.profilePictureImage,
+            userName: user?.userName,
+            imageSrc: user?.profilePictureImage,
           }}
         />
 
         <CommentSectionContainer>
-          <Comments commentIds={post.commentIds} />
+          <Comments commentIds={post?.commentIds} />
         </CommentSectionContainer>
 
         <FooterContainer>
@@ -90,8 +90,8 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
             <QuickActions />
 
             <Box>
-              <LikeCount likes={post.likes} />
-              <RelativeTimestamp timestamp={post.createdAt} />
+              <LikeCount likes={post?.likes} />
+              <RelativeTimestamp timestamp={post?.createdAt} />
             </Box>
           </DetailSummaryContainer>
 

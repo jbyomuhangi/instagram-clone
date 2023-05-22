@@ -21,7 +21,7 @@ const UserInfoContainer = styled(Box)(({ theme }) => ({
 }));
 
 type HeaderProps = {
-  userName: string;
+  userName?: string;
   UserAvatarProps: UserAvatarProps;
 };
 

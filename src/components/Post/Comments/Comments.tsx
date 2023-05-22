@@ -4,10 +4,10 @@ import { Virtuoso } from "react-virtuoso";
 import Comment from "./Comment";
 
 type CommentsProps = {
-  commentIds: string[];
+  commentIds?: string[];
 };
 
-const Comments: React.FC<CommentsProps> = ({ commentIds }) => {
+const Comments: React.FC<CommentsProps> = ({ commentIds = [] }) => {
   const itemContent = (_index: number, item: string) => {
     return <Comment commentId={item} />;
   };

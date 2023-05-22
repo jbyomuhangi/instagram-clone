@@ -54,15 +54,21 @@ export const dataSlice = createSlice({
 
 export const dataActions = dataSlice.actions;
 
-export const selectUser = (id: string) => (state: RootState) =>
-  state.data.usersMap[id];
+export const selectUser =
+  (id = "") =>
+  (state: RootState): User | undefined =>
+    state.data.usersMap[id];
 
 export const selectPostIds = (state: RootState) => state.data.postIds;
 
-export const selectPost = (id: string) => (state: RootState) =>
-  state.data.postsMap[id];
+export const selectPost =
+  (id = "") =>
+  (state: RootState): Post | undefined =>
+    state.data.postsMap[id];
 
-export const selectComment = (id: string) => (state: RootState) =>
-  state.data.commentsMap[id];
+export const selectComment =
+  (id = "") =>
+  (state: RootState): Comment | undefined =>
+    state.data.commentsMap[id];
 
 export default dataSlice.reducer;
