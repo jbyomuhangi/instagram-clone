@@ -1,4 +1,4 @@
-import { faker, fakerTH } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 import { CommentsMap, PostsMap, UserMap } from "@/reducers/dataReducer";
 import { Comment, Post, User } from "@/types/dataTypes";
