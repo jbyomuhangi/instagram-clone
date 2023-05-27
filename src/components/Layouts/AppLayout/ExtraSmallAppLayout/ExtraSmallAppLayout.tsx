@@ -41,17 +41,6 @@ const FooterContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
 }));
 
-const ButtonContainer = styled("button")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  borderRadius: "10px",
-  padding: `${theme.spacing(1)}`,
-  justifyContent: "center",
-  ":hover": {
-    backgroundColor: theme.palette.grey[100],
-  },
-}));
-
 const pageIcons = [
   { name: "Home", IconNormal: HomeOutlined, IconActive: Home, route: "/" },
 ];
