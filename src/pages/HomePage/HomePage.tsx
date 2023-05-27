@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { Virtuoso } from "react-virtuoso";
 
@@ -6,6 +6,7 @@ import DefaultPost from "@/components/Post/DefaultPost";
 import FullPost from "@/components/Post/FullPost";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { dataActions, selectPostIds } from "@/reducers/dataReducer";
+import StorySection from "./StorySection";
 
 const PostContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -14,6 +15,7 @@ const PostContainer = styled(Box)(({ theme }) => ({
 }));
 
 const HomePage: React.FC = () => {
+  const theme = useTheme();
   const dispatch = useAppDispatch();
   const [fullPostId, setFullPostId] = useState<string | undefined>();
 
@@ -42,6 +44,10 @@ const HomePage: React.FC = () => {
 
   return (
     <Box>
+      <Box sx={{ paddingBottom: theme.spacing(2) }}>
+        <StorySection />
+      </Box>
+
       <Virtuoso
         useWindowScroll
         data={postIds}

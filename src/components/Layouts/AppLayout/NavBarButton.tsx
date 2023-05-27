@@ -52,7 +52,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = ({
       {!isSmallScreen && (
         <Typography
           sx={{
-            fontSize: "1rem",
+            fontSize: "1.25rem",
             fontWeight: isActive ? "bold" : "unset",
             ...sx,
           }}

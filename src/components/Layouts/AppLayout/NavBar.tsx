@@ -4,7 +4,7 @@ import {
   Instagram,
   MenuOutlined,
 } from "@mui/icons-material";
-import { Box, styled } from "@mui/material";
+import { Box, styled, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -48,6 +48,34 @@ const pageIcons = [
   { name: "Home", IconNormal: HomeOutlined, IconActive: Home, route: "/" },
 ];
 
+const InstagramIcon = () => {
+  const theme = useTheme();
+
+  return (
+    <Box>
+      <svg width={0} height={0}>
+        <linearGradient
+          id="instagramLogoLinerGradient"
+          x1={1}
+          y1={0}
+          x2={1}
+          y2={1}
+        >
+          <stop offset={0} stopColor={theme.palette.primaryGradient.from} />
+          <stop offset={1} stopColor={theme.palette.primaryGradient.to} />
+        </linearGradient>
+      </svg>
+
+      <Instagram
+        sx={{
+          fill: "url(#instagramLogoLinerGradient)",
+          fontSize: "2rem",
+        }}
+      />
+    </Box>
+  );
+};
+
 type NavBarProps = {
   onCheckIsActiveLocation: (route: string) => boolean;
   onPageClick: (route: string) => void;
@@ -58,6 +86,7 @@ const NavBar: React.FC<NavBarProps> = ({
   onPageClick,
 }) => {
   const location = useLocation();
+  const theme = useTheme();
 
   const user = useAppSelector(selectMe);
 
@@ -71,8 +100,16 @@ const NavBar: React.FC<NavBarProps> = ({
       <LogoContainer>
         <NavBarButton
           label="Instagram"
-          IconRenderer={() => <Instagram sx={{ fontSize: "2rem" }} />}
-          TypographyProps={{ sx: { fontWeight: "bold", fontSize: "2rem" } }}
+          IconRenderer={() => <InstagramIcon />}
+          TypographyProps={{
+            sx: {
+              fontWeight: "bold",
+              fontSize: "2rem",
+              background: `linear-gradient(${theme.palette.primaryGradient.from}, ${theme.palette.primaryGradient.to})`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            },
+          }}
         />
       </LogoContainer>
 
@@ -87,7 +124,7 @@ const NavBar: React.FC<NavBarProps> = ({
               key={name}
               label={name}
               isActive={isActive}
-              IconRenderer={() => <IconRenderer sx={{ fontSize: "1.5rem" }} />}
+              IconRenderer={() => <IconRenderer sx={{ fontSize: "2rem" }} />}
               onClick={() => onPageClick(route)}
             />
           );
@@ -100,7 +137,7 @@ const NavBar: React.FC<NavBarProps> = ({
             <UserAvatar
               userName={user?.userName}
               imageSrc={user?.profilePictureImage}
-              sx={{ height: "1.5rem", width: "1.5rem" }}
+              sx={{ height: "2rem", width: "2rem" }}
             />
           )}
           onClick={() => onPageClick(`/profile/${user?.id || ""}`)}

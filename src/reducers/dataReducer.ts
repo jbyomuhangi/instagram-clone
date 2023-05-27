@@ -15,17 +15,25 @@ interface DataState {
   postsMap: PostsMap;
   postIds: string[];
   commentsMap: CommentsMap;
+  userStoriesIds: string[];
 }
 
 const getInitialState = (): DataState => {
   /* Create users */
-  const usersMap = createUserMap();
+  const usersMap = createUserMap(20);
   const userIds = Object.keys(usersMap);
 
   /* Create posts */
   const { postsMap, postIds, commentsMap } = createPosts({ userIds });
 
-  return { userId: userIds[0], usersMap, postsMap, postIds, commentsMap };
+  return {
+    userId: userIds[0],
+    usersMap,
+    postsMap,
+    postIds,
+    commentsMap,
+    userStoriesIds: [...userIds.slice(0, 10)],
+  };
 };
 
 const initialState: DataState = getInitialState();
@@ -141,5 +149,8 @@ export const selectUserPostIds =
       (postId) => state.data.postsMap[postId].userId === userId
     );
   };
+
+export const selectUserStoriesIds = (state: RootState) =>
+  state.data.userStoriesIds;
 
 export default dataSlice.reducer;
