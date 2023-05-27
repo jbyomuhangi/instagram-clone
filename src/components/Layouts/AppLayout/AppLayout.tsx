@@ -1,6 +1,6 @@
 import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import ExtraSmallAppLayout from "./ExtraSmallAppLayout";
 import NavBar from "./NavBar";
@@ -17,15 +17,37 @@ const ContentContainer = styled(Box)(({ theme }) => ({
 }));
 
 const AppLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
 
-  if (isExtraSmallScreen) return <ExtraSmallAppLayout />;
+  const handlePageClick = (route: string) => {
+    navigate(route);
+  };
+
+  const checkIsActiveLocation = (route: string): boolean => {
+    /* Special handling for home route */
+    if (route === "/") return location.pathname === route;
+    return location.pathname.startsWith(route);
+  };
+
+  if (isExtraSmallScreen)
+    return (
+      <ExtraSmallAppLayout
+        onCheckIsActiveLocation={checkIsActiveLocation}
+        onPageClick={handlePageClick}
+      />
+    );
 
   return (
     <AppLayoutContainer>
-      <NavBar />
+      <NavBar
+        onCheckIsActiveLocation={checkIsActiveLocation}
+        onPageClick={handlePageClick}
+      />
 
       <ContentContainer>
         <Outlet />

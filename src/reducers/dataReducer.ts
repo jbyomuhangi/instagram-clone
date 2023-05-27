@@ -9,6 +9,7 @@ export type PostsMap = { [key: string]: Post };
 export type CommentsMap = { [key: string]: Comment };
 
 interface DataState {
+  userId: string;
   usersMap: UserMap;
   postsMap: PostsMap;
   postIds: string[];
@@ -18,13 +19,12 @@ interface DataState {
 const getInitialState = (): DataState => {
   /* Create users */
   const usersMap = createUserMap();
+  const userIds = Object.keys(usersMap);
 
   /* Create posts */
-  const { postsMap, postIds, commentsMap } = createPosts({
-    userIds: Object.keys(usersMap),
-  });
+  const { postsMap, postIds, commentsMap } = createPosts({ userIds });
 
-  return { usersMap, postsMap, postIds, commentsMap };
+  return { userId: userIds[0], usersMap, postsMap, postIds, commentsMap };
 };
 
 const initialState: DataState = getInitialState();
@@ -59,6 +59,10 @@ export const selectUser =
   (state: RootState): User | undefined => {
     return state.data.usersMap[id];
   };
+
+export const selectMe = (state: RootState): User | undefined => {
+  return state.data.usersMap[state.data.userId];
+};
 
 export const selectPostIds = (state: RootState) => state.data.postIds;
 

@@ -1,7 +1,12 @@
 import { Home, HomeOutlined } from "@mui/icons-material";
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+
+import NavBarButton from "@/components/Layouts/AppLayout/NavBarButton";
+import UserAvatar from "@/components/UserAvatar";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectMe } from "@/reducers/dataReducer";
 
 const ExtraSmallAppLayoutContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -51,19 +56,16 @@ const pageIcons = [
   { name: "Home", IconNormal: HomeOutlined, IconActive: Home, route: "/" },
 ];
 
-const ExtraSmallAppLayout: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+type ExtraSmallAppLayoutProps = {
+  onCheckIsActiveLocation: (route: string) => boolean;
+  onPageClick: (route: string) => void;
+};
 
-  const handlePageClick = (route: string) => {
-    navigate(route);
-  };
-
-  const checkIsActiveLocation = (route: string): boolean => {
-    /* Special handling for home route */
-    if (route === "/") return location.pathname === route;
-    return location.pathname.startsWith(route);
-  };
+const ExtraSmallAppLayout: React.FC<ExtraSmallAppLayoutProps> = ({
+  onCheckIsActiveLocation,
+  onPageClick,
+}) => {
+  const user = useAppSelector(selectMe);
 
   return (
     <ExtraSmallAppLayoutContainer>
@@ -80,15 +82,27 @@ const ExtraSmallAppLayout: React.FC = () => {
       <FooterContainer>
         {pageIcons.map((icon) => {
           const { name, route, IconNormal, IconActive } = icon;
-          const isActive = checkIsActiveLocation(route);
+          const isActive = onCheckIsActiveLocation(route);
           const IconRenderer = isActive ? IconActive : IconNormal;
 
           return (
-            <ButtonContainer key={name} onClick={() => handlePageClick(route)}>
-              <IconRenderer sx={{ fontSize: "1.5rem" }} />
-            </ButtonContainer>
+            <NavBarButton
+              key={name}
+              IconRenderer={() => <IconRenderer sx={{ fontSize: "1.5rem" }} />}
+              onClick={() => onPageClick(route)}
+            />
           );
         })}
+        <NavBarButton
+          IconRenderer={() => (
+            <UserAvatar
+              userName={user?.userName}
+              imageSrc={user?.profilePictureImage}
+              sx={{ height: "1.5rem", width: "1.5rem" }}
+            />
+          )}
+          onClick={() => onPageClick(`/profile/${user?.id || ""}`)}
+        />
       </FooterContainer>
     </ExtraSmallAppLayoutContainer>
   );

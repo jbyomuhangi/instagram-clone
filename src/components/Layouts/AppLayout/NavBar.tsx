@@ -4,9 +4,13 @@ import {
   Instagram,
   MenuOutlined,
 } from "@mui/icons-material";
-import { Box, Theme, Typography, styled, useMediaQuery } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import UserAvatar from "@/components/UserAvatar";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { selectMe } from "@/reducers/dataReducer";
+import NavBarButton from "./NavBarButton";
 
 const NavBarContainer = styled(Box)(({ theme }) => ({
   position: "sticky",
@@ -39,85 +43,65 @@ const ButtonsContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-const ButtonContainer = styled("button")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(1),
-  width: "100%",
-  borderRadius: "10px",
-  padding: `${theme.spacing(1)} 0px`,
-  ":hover": {
-    backgroundColor: theme.palette.grey[100],
-  },
-
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
-  },
-}));
-
 const pageIcons = [
   { name: "Home", IconNormal: HomeOutlined, IconActive: Home, route: "/" },
 ];
 
-const NavBar: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isSmallScreen = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("md")
-  );
+type NavBarProps = {
+  onCheckIsActiveLocation: (route: string) => boolean;
+  onPageClick: (route: string) => void;
+};
 
-  const handlePageClick = (route: string) => {
-    navigate(route);
-  };
-
-  const checkIsActiveLocation = (route: string): boolean => {
-    /* Special handling for home route */
-    if (route === "/") return location.pathname === route;
-    return location.pathname.startsWith(route);
-  };
+const NavBar: React.FC<NavBarProps> = ({
+  onCheckIsActiveLocation,
+  onPageClick,
+}) => {
+  const user = useAppSelector(selectMe);
 
   return (
     <NavBarContainer>
       <LogoContainer>
-        <Instagram sx={{ fontSize: "2rem" }} />
-
-        {!isSmallScreen && (
-          <Typography sx={{ fontWeight: "bold", fontSize: "2rem" }}>
-            Instagram
-          </Typography>
-        )}
+        <NavBarButton
+          label="Instagram"
+          IconRenderer={() => <Instagram sx={{ fontSize: "2rem" }} />}
+          TypographyProps={{ sx: { fontWeight: "bold", fontSize: "2rem" } }}
+        />
       </LogoContainer>
 
       <ButtonsContainer>
         {pageIcons.map((icon) => {
           const { name, route, IconNormal, IconActive } = icon;
-          const isActive = checkIsActiveLocation(route);
+          const isActive = onCheckIsActiveLocation(route);
           const IconRenderer = isActive ? IconActive : IconNormal;
 
           return (
-            <ButtonContainer key={name} onClick={() => handlePageClick(route)}>
-              <IconRenderer sx={{ fontSize: "1.5rem" }} />
-              {!isSmallScreen && (
-                <Typography
-                  sx={{
-                    fontSize: "1rem",
-                    fontWeight: isActive ? "bold" : "unset",
-                  }}
-                >
-                  {name}
-                </Typography>
-              )}
-            </ButtonContainer>
+            <NavBarButton
+              key={name}
+              label={name}
+              isActive={isActive}
+              IconRenderer={() => <IconRenderer sx={{ fontSize: "1.5rem" }} />}
+              onClick={() => onPageClick(route)}
+            />
           );
         })}
+
+        <NavBarButton
+          label="Profile"
+          IconRenderer={() => (
+            <UserAvatar
+              userName={user?.userName}
+              imageSrc={user?.profilePictureImage}
+              sx={{ height: "1.5rem", width: "1.5rem" }}
+            />
+          )}
+          onClick={() => onPageClick(`/profile/${user?.id || ""}`)}
+        />
       </ButtonsContainer>
 
-      <ButtonContainer>
-        <MenuOutlined sx={{ fontSize: "1.5rem" }} />
-        {!isSmallScreen && (
-          <Typography sx={{ fontSize: "1rem" }}>More</Typography>
-        )}
-      </ButtonContainer>
+      <NavBarButton
+        label="More"
+        IconRenderer={() => <MenuOutlined sx={{ fontSize: "1.5rem" }} />}
+      />
     </NavBarContainer>
   );
 };
