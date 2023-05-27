@@ -51,7 +51,7 @@ const ProfilePage: React.FC = () => {
   if (!user) {
     return (
       <Box>
-        <Typography>User not found</Typography>
+        <Typography>User not found :(</Typography>
       </Box>
     );
   }
