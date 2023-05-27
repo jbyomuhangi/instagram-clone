@@ -24,7 +24,10 @@ const getInitialState = (): DataState => {
   const userIds = Object.keys(usersMap);
 
   /* Create posts */
-  const { postsMap, postIds, commentsMap } = createPosts({ userIds });
+  const { postsMap, postIds, commentsMap } = createPosts({
+    userIds,
+    count: 50,
+  });
 
   return {
     userId: userIds[0],
