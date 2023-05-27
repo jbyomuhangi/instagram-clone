@@ -1,8 +1,16 @@
-import { Box, Theme, styled, useMediaQuery } from "@mui/material";
-import React from "react";
+import { Favorite } from "@mui/icons-material";
+import {
+  Box,
+  Theme,
+  Zoom,
+  styled,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
 
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { selectPost, selectUser } from "@/reducers/dataReducer";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { dataActions, selectPost, selectUser } from "@/reducers/dataReducer";
 import { empty } from "@/utils/noopUtils";
 import CommentInput from "./CommentInput";
 import Details from "./Details";
@@ -19,10 +27,22 @@ const DefaultPostContainer = styled(Box)(({ theme }) => ({
 }));
 
 const MediaContainer = styled(Box)(() => ({
+  position: "relative",
   backgroundColor: "black",
   minHeight: "300px",
   maxHeight: "450px",
   height: "100vh",
+}));
+
+const LikeOverlayContainer = styled(Box)(() => ({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
 type DefaultPostProps = {
@@ -36,12 +56,33 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
   isFullPost,
   onViewFullPost = empty,
 }) => {
+  const dispatch = useAppDispatch();
+  const theme = useTheme();
+
+  const [likeOverlayColor, setLikeOverlayColor] = useState<
+    string | undefined
+  >();
+
   const post = useAppSelector(selectPost(postId));
   const user = useAppSelector(selectUser(post?.userId));
 
   const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
+
+  const handleLikePost = () => {
+    if (!post) return;
+    const color = post.isLiked
+      ? theme.palette.common.white
+      : theme.palette.like.main;
+
+    setLikeOverlayColor(color);
+    setTimeout(() => {
+      setLikeOverlayColor(undefined);
+    }, 500);
+
+    dispatch(dataActions.likePost({ postId }));
+  };
 
   return (
     <DefaultPostContainer
@@ -56,11 +97,22 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
         }}
       />
 
-      <MediaContainer>
+      <MediaContainer onDoubleClick={handleLikePost}>
         <img
           src={post?.image}
           style={{ height: "100%", width: "100%", objectFit: "contain" }}
         />
+
+        <Zoom in={!!likeOverlayColor} timeout={200} unmountOnExit>
+          <LikeOverlayContainer>
+            <Favorite
+              sx={{
+                fontSize: "10rem",
+                color: likeOverlayColor,
+              }}
+            />
+          </LikeOverlayContainer>
+        </Zoom>
       </MediaContainer>
 
       <Details

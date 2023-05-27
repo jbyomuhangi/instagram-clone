@@ -1,5 +1,13 @@
-import { Box, Theme, styled, useMediaQuery } from "@mui/material";
-import React from "react";
+import { Favorite } from "@mui/icons-material";
+import {
+  Box,
+  Theme,
+  Zoom,
+  styled,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
 
 import Comments from "@/components/Post/Comments";
 import CommentInput from "@/components/Post/DefaultPost/CommentInput";
@@ -7,8 +15,8 @@ import LikeCount from "@/components/Post/DefaultPost/Details/LikeCount";
 import QuickActions from "@/components/Post/DefaultPost/Details/QuickActions";
 import Header from "@/components/Post/DefaultPost/Header";
 import RelativeTimestamp from "@/components/RelativeTimestamp";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { selectPost, selectUser } from "@/reducers/dataReducer";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { dataActions, selectPost, selectUser } from "@/reducers/dataReducer";
 
 const FullPostContentContainer = styled(Box)(() => ({
   width: "80vw",
@@ -17,6 +25,7 @@ const FullPostContentContainer = styled(Box)(() => ({
 }));
 
 const MediaContainer = styled(Box)(({ theme }) => ({
+  position: "relative",
   flex: 1,
   backgroundColor: theme.palette.common.black,
 }));
@@ -47,6 +56,17 @@ const DetailSummaryContainer = styled(Box)(({ theme }) => ({
   padding: `0px ${theme.spacing(1)}`,
 }));
 
+const LikeOverlayContainer = styled(Box)(() => ({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}));
+
 type FullPostContentDefaultProps = {
   postId: string;
 };
@@ -54,6 +74,13 @@ type FullPostContentDefaultProps = {
 const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
   postId,
 }) => {
+  const dispatch = useAppDispatch();
+  const theme = useTheme();
+
+  const [likeOverlayColor, setLikeOverlayColor] = useState<
+    string | undefined
+  >();
+
   const post = useAppSelector(selectPost(postId));
   const user = useAppSelector(selectUser(post?.userId));
 
@@ -61,13 +88,38 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
     theme.breakpoints.down("lg")
   );
 
+  const handleLikePost = () => {
+    if (!post) return;
+    const color = post.isLiked
+      ? theme.palette.common.white
+      : theme.palette.like.main;
+
+    setLikeOverlayColor(color);
+    setTimeout(() => {
+      setLikeOverlayColor(undefined);
+    }, 500);
+
+    dispatch(dataActions.likePost({ postId }));
+  };
+
   return (
     <FullPostContentContainer>
-      <MediaContainer>
+      <MediaContainer onDoubleClick={handleLikePost}>
         <img
           src={post?.image}
           style={{ height: "100%", width: "100%", objectFit: "contain" }}
         />
+
+        <Zoom in={!!likeOverlayColor} timeout={200} unmountOnExit>
+          <LikeOverlayContainer>
+            <Favorite
+              sx={{
+                fontSize: "10rem",
+                color: likeOverlayColor,
+              }}
+            />
+          </LikeOverlayContainer>
+        </Zoom>
       </MediaContainer>
 
       <DetailsContainer
