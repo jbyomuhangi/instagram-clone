@@ -1,17 +1,22 @@
 import { Box, styled } from "@mui/material";
-import React from "react";
-import { VirtuosoGrid } from "react-virtuoso";
+import React, { useMemo } from "react";
+import { Virtuoso } from "react-virtuoso";
 
 import PostItem from "./PostItem";
 
 const ListContainer = styled(Box)(({ theme }) => ({
   display: "flex",
-  flexWrap: "wrap",
+  flexDirection: "column",
+  gap: theme.spacing(1),
+}));
+
+const Row = styled(Box)(({ theme }) => ({
+  display: "flex",
   gap: theme.spacing(1),
 }));
 
 const ItemContainer = styled(Box)(() => ({
-  width: "32%",
+  flex: 1,
   aspectRatio: "1/1",
 }));
 
@@ -24,20 +29,41 @@ const ProfileBody: React.FC<ProfileBodyProps> = ({
   postIds = [],
   onOpenFullPost,
 }) => {
-  const itemContent = (index: number) => {
-    return <PostItem postId={postIds[index]} onOpenFullPost={onOpenFullPost} />;
+  const rowsArray = useMemo(() => {
+    const rowCount = Math.ceil(postIds.length / 3);
+    return Array.from(Array(rowCount).keys());
+  }, [postIds]);
+
+  const columnArray = useMemo(() => {
+    return Array.from(Array(3).keys());
+  }, []);
+
+  const itemContent = (rowNumber: number) => {
+    return (
+      <Row>
+        {columnArray.map((column) => {
+          const itemIndex = rowNumber * 3 + column;
+
+          return (
+            <ItemContainer key={column}>
+              <PostItem
+                postId={postIds[itemIndex]}
+                onOpenFullPost={onOpenFullPost}
+              />
+            </ItemContainer>
+          );
+        })}
+      </Row>
+    );
   };
 
   return (
     <Box>
-      <VirtuosoGrid
+      <Virtuoso
         useWindowScroll
-        totalCount={postIds.length}
+        data={rowsArray}
         itemContent={itemContent}
-        components={{
-          Item: ItemContainer,
-          List: ListContainer as typeof Box,
-        }}
+        components={{ List: ListContainer as typeof Box }}
       />
     </Box>
   );
