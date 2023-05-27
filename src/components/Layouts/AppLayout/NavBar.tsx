@@ -4,7 +4,14 @@ import {
   Instagram,
   MenuOutlined,
 } from "@mui/icons-material";
-import { Box, styled, useTheme } from "@mui/material";
+import {
+  Box,
+  Theme,
+  Typography,
+  styled,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import React, { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -89,6 +96,10 @@ const NavBar: React.FC<NavBarProps> = ({
 
   const user = useAppSelector(selectMe);
 
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("md")
+  );
+
   const isViewingMyProfile = useMemo(() => {
     if (!user) return false;
     return location.pathname === `/profile/${user.id}`;
@@ -97,11 +108,13 @@ const NavBar: React.FC<NavBarProps> = ({
   return (
     <NavBarContainer>
       <LogoContainer>
-        <NavBarButton
-          label="Instagram"
-          IconRenderer={() => <InstagramIcon />}
-          TypographyProps={{ sx: { fontWeight: "bold", fontSize: "2rem" } }}
-        />
+        <InstagramIcon />
+
+        {!isSmallScreen && (
+          <Typography sx={{ fontWeight: "bold", fontSize: "2rem" }}>
+            Instagram
+          </Typography>
+        )}
       </LogoContainer>
 
       <ButtonsContainer>

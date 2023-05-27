@@ -39,6 +39,7 @@ const HomePage: React.FC = () => {
   };
 
   const handleEndReached = () => {
+    if (postIds.length > 100) return;
     dispatch(dataActions.getMorePosts());
   };
 
