@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { dataActions } from "@/reducers/dataReducer";
+import { validateNonEmptyString } from "@/utils/formValidationUtils";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
@@ -75,6 +76,9 @@ const CommentInput: React.FC<CommentInputProps> = ({ postId }) => {
             onChange={(event) => onChange(event.target.value)}
           />
         );
+      }}
+      rules={{
+        validate: { validateInput: (value) => validateNonEmptyString(value) },
       }}
     />
   );
