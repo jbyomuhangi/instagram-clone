@@ -60,6 +60,20 @@ export const dataSlice = createSlice({
       const newPost: Post = { ...post, isLiked, likes };
       return { ...state, postsMap: { ...state.postsMap, [postId]: newPost } };
     },
+
+    likeComment: (state, action: PayloadAction<{ commentId: string }>) => {
+      const { commentId } = action.payload;
+      const comment: Comment | undefined = state.commentsMap[commentId];
+      if (!comment) return state;
+
+      const isLiked = !comment.isLiked;
+      const likes = isLiked ? comment.likes + 1 : comment.likes - 1;
+      const newComment: Comment = { ...comment, isLiked, likes };
+      return {
+        ...state,
+        commentsMap: { ...state.commentsMap, [commentId]: newComment },
+      };
+    },
   },
 });
 

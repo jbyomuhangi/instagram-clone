@@ -1,11 +1,11 @@
-import { FavoriteBorderOutlined } from "@mui/icons-material";
-import { Box, styled, Typography } from "@mui/material";
+import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
+import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 
 import RelativeTimestamp from "@/components/RelativeTimestamp";
 import UserAvatar from "@/components/UserAvatar";
-import { useAppSelector } from "@/hooks/reduxHooks";
-import { selectComment, selectUser } from "@/reducers/dataReducer";
+import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
+import { dataActions, selectComment, selectUser } from "@/reducers/dataReducer";
 
 const CommentContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -32,13 +32,25 @@ const Likes = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
+const StyledFavorite = styled(Favorite)(({ theme }) => ({
+  color: theme.palette.like.main,
+  fontSize: "1rem",
+}));
+
 type CommentProps = {
   commentId: string;
 };
 
 const Comment: React.FC<CommentProps> = ({ commentId }) => {
+  const dispatch = useAppDispatch();
+
   const comment = useAppSelector(selectComment(commentId));
   const user = useAppSelector(selectUser(comment?.userId));
+
+  const handleLikeComment = () => {
+    if (!comment) return;
+    dispatch(dataActions.likeComment({ commentId: comment.id }));
+  };
 
   return (
     <CommentContainer>
@@ -60,7 +72,13 @@ const Comment: React.FC<CommentProps> = ({ commentId }) => {
         </CommentDetails>
       </CommentBodyContainer>
 
-      <FavoriteBorderOutlined sx={{ fontSize: "1rem" }} />
+      <button onClick={handleLikeComment}>
+        {comment?.isLiked ? (
+          <StyledFavorite />
+        ) : (
+          <FavoriteBorderOutlined sx={{ fontSize: "1rem" }} />
+        )}
+      </button>
     </CommentContainer>
   );
 };
