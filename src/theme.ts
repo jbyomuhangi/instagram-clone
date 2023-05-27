@@ -6,19 +6,22 @@ import {
 
 declare module "@mui/material/styles" {
   interface Palette {
-    link: PaletteColor;
     border: PaletteColor;
+    link: PaletteColor;
+    like: PaletteColor;
   }
   interface PaletteOptions {
-    link: PaletteColorOptions;
     border: PaletteColorOptions;
+    link: PaletteColorOptions;
+    like: PaletteColorOptions;
   }
 }
 
 const theme = createTheme({
   palette: {
-    link: { main: "#0969DA" },
     border: { main: "#E0E0E0" },
+    link: { main: "#0969DA" },
+    like: { main: "#FF0000" },
   },
 });
 

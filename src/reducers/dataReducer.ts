@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import type { RootState } from "@/store";
 import { Comment, Post, User } from "@/types/dataTypes";
@@ -33,7 +33,7 @@ export const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    getMorePosts: (state) => {
+    getMorePosts: (state: DataState) => {
       const lastPostId = state.postIds.slice(-1)[0];
       const lastPost = state.postsMap[lastPostId];
 
@@ -48,6 +48,17 @@ export const dataSlice = createSlice({
         commentsMap: { ...state.commentsMap, ...commentsMap },
         postIds: [...state.postIds, ...postIds],
       };
+    },
+
+    likePost: (state, action: PayloadAction<{ postId: string }>) => {
+      const { postId } = action.payload;
+      const post: Post | undefined = state.postsMap[postId];
+      if (!post) return state;
+
+      const isLiked = !post.isLiked;
+      const likes = isLiked ? post.likes + 1 : post.likes - 1;
+      const newPost: Post = { ...post, isLiked, likes };
+      return { ...state, postsMap: { ...state.postsMap, [postId]: newPost } };
     },
   },
 });

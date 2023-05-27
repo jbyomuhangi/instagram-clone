@@ -88,7 +88,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
 
         <FooterContainer>
           <DetailSummaryContainer>
-            <QuickActions />
+            <QuickActions postId={post?.id} isLiked={post?.isLiked} />
 
             <Box>
               <LikeCount likes={post?.likes} />

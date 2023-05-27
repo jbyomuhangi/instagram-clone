@@ -70,6 +70,7 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
         commentIds={post?.commentIds}
         createdAt={post?.createdAt}
         LikeCountProps={{ likes: post?.likes }}
+        QuickActionsProps={{ postId: post?.id, isLiked: post?.isLiked }}
         onViewFullPost={() => onViewFullPost(post?.id)}
       />
 

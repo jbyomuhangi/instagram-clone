@@ -107,6 +107,7 @@ export const createPost = ({
     likes: faker.number.int({ min: 0, max: 1000 }),
     commentIds,
     createdAt,
+    isLiked: false,
   };
 
   return { post, commentsMap };

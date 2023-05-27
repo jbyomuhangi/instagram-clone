@@ -5,7 +5,7 @@ import RelativeTimestamp from "@/components/RelativeTimestamp";
 import TextPreview from "@/components/TextPreview";
 import CommentDrawer from "./CommentDrawer";
 import LikeCount, { LikeCountProps } from "./LikeCount";
-import QuickActions from "./QuickActions";
+import QuickActions, { QuickActionsProps } from "./QuickActions";
 
 const DetailsContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -30,6 +30,7 @@ type DetailsProps = {
   commentIds?: string[];
   createdAt?: string;
   LikeCountProps: LikeCountProps;
+  QuickActionsProps?: QuickActionsProps;
   onViewFullPost?: () => void;
 };
 
@@ -40,6 +41,7 @@ const Details: React.FC<DetailsProps> = ({
   commentIds = [],
   createdAt,
   LikeCountProps,
+  QuickActionsProps,
   onViewFullPost,
 }) => {
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] =
@@ -65,6 +67,7 @@ const Details: React.FC<DetailsProps> = ({
       <DetailsContainer>
         <QuickActions
           onCommentClick={isFullPost ? handleOpenCommentDrawer : onViewFullPost}
+          {...QuickActionsProps}
         />
 
         <LikeCount {...LikeCountProps} />
