@@ -57,7 +57,7 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <Box>
+    <Box key={user.id}>
       <ProfilePageContainer>
         <ProfileContentContainer>
           <ProfileSummary
