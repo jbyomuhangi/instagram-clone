@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Box, styled } from "@mui/material";
 import React, { useMemo } from "react";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import UserAvatar from "@/components/UserAvatar";
 import { useAppSelector } from "@/hooks/reduxHooks";
