@@ -7,6 +7,10 @@ export const formatTimestamp = (timestamp?: string) => {
   const createdAtMoment = moment(timestamp);
   const duration = moment.duration(nowMoment.diff(createdAtMoment));
 
+  if (duration.asMinutes() < 1) {
+    return `${Math.round(duration.asSeconds())} seconds ago`;
+  }
+
   if (duration.asHours() < 1) {
     return `${Math.round(duration.asMinutes())} minutes ago`;
   }

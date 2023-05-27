@@ -33,12 +33,14 @@ const CommentsSectionContainer = styled(Box)(({ theme }) => ({
 }));
 
 type CommentDrawerProps = {
+  postId?: string;
   isOpen?: boolean;
   commentIds?: string[];
   onClose?: () => void;
 };
 
 const CommentDrawer: React.FC<CommentDrawerProps> = ({
+  postId,
   isOpen,
   commentIds = [],
   onClose,
@@ -62,7 +64,7 @@ const CommentDrawer: React.FC<CommentDrawerProps> = ({
           <Comments commentIds={commentIds} />
         </CommentsSectionContainer>
 
-        <CommentInput />
+        <CommentInput postId={postId} />
       </DrawerBodyContainer>
     </StyledDrawer>
   );

@@ -96,7 +96,7 @@ const FullPostContentDefault: React.FC<FullPostContentDefaultProps> = ({
             </Box>
           </DetailSummaryContainer>
 
-          <CommentInput />
+          <CommentInput postId={post?.id} />
         </FooterContainer>
       </DetailsContainer>
     </FullPostContentContainer>

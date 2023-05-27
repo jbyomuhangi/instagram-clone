@@ -68,7 +68,7 @@ const Comment: React.FC<CommentProps> = ({ commentId }) => {
 
         <CommentDetails>
           <RelativeTimestamp timestamp={comment?.createdAt} />
-          {comment?.likes && <Likes>{comment.likes} likes</Likes>}
+          {!!comment?.likes && <Likes>{comment.likes} likes</Likes>}
         </CommentDetails>
       </CommentBodyContainer>
 

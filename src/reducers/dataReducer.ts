@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import type { RootState } from "@/store";
@@ -72,6 +73,36 @@ export const dataSlice = createSlice({
       return {
         ...state,
         commentsMap: { ...state.commentsMap, [commentId]: newComment },
+      };
+    },
+
+    addComment: (
+      state,
+      action: PayloadAction<{ commentText: string; postId: string }>
+    ) => {
+      const { commentText, postId } = action.payload;
+      const post = state.postsMap[postId];
+      if (!post) return state;
+
+      const comment: Comment = {
+        id: faker.string.uuid(),
+        comment: commentText,
+        likes: 0,
+        postId,
+        userId: state.userId,
+        createdAt: new Date().toUTCString(),
+        isLiked: false,
+      };
+
+      const newPost: Post = {
+        ...post,
+        commentIds: [comment.id, ...post.commentIds],
+      };
+
+      return {
+        ...state,
+        commentsMap: { ...state.commentsMap, [comment.id]: comment },
+        postsMap: { ...state.postsMap, [newPost.id]: newPost },
       };
     },
   },

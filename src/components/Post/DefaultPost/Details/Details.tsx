@@ -24,6 +24,7 @@ const ViewAllComments = styled(Typography)(({ theme }) => ({
 }));
 
 type DetailsProps = {
+  postId?: string;
   isFullPost?: boolean;
   isExtraSmallScreen?: boolean;
   caption?: string;
@@ -35,6 +36,7 @@ type DetailsProps = {
 };
 
 const Details: React.FC<DetailsProps> = ({
+  postId,
   isFullPost,
   isExtraSmallScreen,
   caption,
@@ -93,6 +95,7 @@ const Details: React.FC<DetailsProps> = ({
 
       {isFullPost && (
         <CommentDrawer
+          postId={postId}
           isOpen={isCommentDrawerOpen}
           commentIds={commentIds}
           onClose={handleCloseCommentDrawer}

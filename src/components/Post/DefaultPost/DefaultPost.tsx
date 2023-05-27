@@ -64,6 +64,7 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
       </MediaContainer>
 
       <Details
+        postId={post?.id}
         isFullPost={isFullPost}
         isExtraSmallScreen={isExtraSmallScreen}
         caption={post?.caption}
@@ -74,7 +75,7 @@ const DefaultPost: React.FC<DefaultPostProps> = ({
         onViewFullPost={() => onViewFullPost(post?.id)}
       />
 
-      {!isExtraSmallScreen && <CommentInput />}
+      {!isExtraSmallScreen && <CommentInput postId={post?.id} />}
     </DefaultPostContainer>
   );
 };
