@@ -71,7 +71,15 @@ const ProfilePage: React.FC = () => {
             }}
           />
 
-          <ProfileBody postIds={postIds} onOpenFullPost={handleOpenFullPost} />
+          <ProfileBody
+            postIds={postIds}
+            ProfileBodyStatSummaryProps={{
+              followerCount: user.followerCount,
+              followingCount: user.followingCount,
+              postCount: postIds.length,
+            }}
+            onOpenFullPost={handleOpenFullPost}
+          />
         </ProfileContentContainer>
       </ProfilePageContainer>
 

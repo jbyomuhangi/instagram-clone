@@ -1,8 +1,11 @@
-import { Box, styled } from "@mui/material";
+import { Box, Theme, styled, useMediaQuery } from "@mui/material";
 import React, { useMemo } from "react";
 import { Virtuoso } from "react-virtuoso";
 
 import PostItem from "./PostItem";
+import ProfileBodyStatSummary, {
+  ProfileBodyStatSummaryProps,
+} from "./ProfileBodyStatSummary";
 
 const ListContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -22,13 +25,19 @@ const ItemContainer = styled(Box)(() => ({
 
 type ProfileBodyProps = {
   postIds?: string[];
+  ProfileBodyStatSummaryProps?: ProfileBodyStatSummaryProps;
   onOpenFullPost?: (postId?: string) => void;
 };
 
 const ProfileBody: React.FC<ProfileBodyProps> = ({
   postIds = [],
+  ProfileBodyStatSummaryProps = {},
   onOpenFullPost,
 }) => {
+  const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
+
   const rowsArray = useMemo(() => {
     const rowCount = Math.ceil(postIds.length / 3);
     return Array.from(Array(rowCount).keys());
@@ -59,6 +68,10 @@ const ProfileBody: React.FC<ProfileBodyProps> = ({
 
   return (
     <Box>
+      {isExtraSmallScreen && (
+        <ProfileBodyStatSummary {...ProfileBodyStatSummaryProps} />
+      )}
+
       <Virtuoso
         useWindowScroll
         data={rowsArray}
