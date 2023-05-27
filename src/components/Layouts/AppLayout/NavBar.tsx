@@ -5,7 +5,8 @@ import {
   MenuOutlined,
 } from "@mui/icons-material";
 import { Box, styled } from "@mui/material";
-import React from "react";
+import React, { useMemo } from "react";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import UserAvatar from "@/components/UserAvatar";
 import { useAppSelector } from "@/hooks/reduxHooks";
@@ -56,7 +57,14 @@ const NavBar: React.FC<NavBarProps> = ({
   onCheckIsActiveLocation,
   onPageClick,
 }) => {
+  const location = useLocation();
+
   const user = useAppSelector(selectMe);
+
+  const isViewingMyProfile = useMemo(() => {
+    if (!user) return false;
+    return location.pathname === `/profile/${user.id}`;
+  }, [location.pathname, user]);
 
   return (
     <NavBarContainer>
@@ -87,6 +95,7 @@ const NavBar: React.FC<NavBarProps> = ({
 
         <NavBarButton
           label="Profile"
+          isActive={isViewingMyProfile}
           IconRenderer={() => (
             <UserAvatar
               userName={user?.userName}

@@ -82,6 +82,7 @@ const ExtraSmallAppLayout: React.FC<ExtraSmallAppLayoutProps> = ({
             />
           );
         })}
+
         <NavBarButton
           IconRenderer={() => (
             <UserAvatar
