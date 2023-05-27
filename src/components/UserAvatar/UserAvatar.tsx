@@ -1,6 +1,10 @@
-import { Avatar, SxProps } from "@mui/material";
+import { Avatar, SxProps, styled } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  border: `1px solid ${theme.palette.border.main}`,
+}));
 
 export type UserAvatarProps = {
   userId?: string;
@@ -25,12 +29,12 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   if (userId) {
     return (
       <button onClick={handleAvatarClick}>
-        <Avatar alt={userName} src={imageSrc} sx={sx} />
+        <StyledAvatar alt={userName} src={imageSrc} sx={sx} />
       </button>
     );
   }
 
-  return <Avatar alt={userName} src={imageSrc} sx={sx} />;
+  return <StyledAvatar alt={userName} src={imageSrc} sx={sx} />;
 };
 
 export default UserAvatar;

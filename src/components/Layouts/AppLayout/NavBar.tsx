@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Theme, Typography, styled, useMediaQuery } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NavBarContainer = styled(Box)(({ theme }) => ({
   position: "sticky",
@@ -18,6 +18,7 @@ const NavBarContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
   padding: theme.spacing(2),
   top: 0,
+  border: `1px solid ${theme.palette.border.main}`,
 
   [theme.breakpoints.down("md")]: {
     width: "fit-content",
@@ -55,12 +56,13 @@ const ButtonContainer = styled("button")(({ theme }) => ({
 }));
 
 const pageIcons = [
-  { name: "Home", IconNormal: HomeOutlined, IconSelected: Home, route: "/" },
+  { name: "Home", IconNormal: HomeOutlined, IconActive: Home, route: "/" },
 ];
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
-  const isExtraSmallScreen = useMediaQuery((theme: Theme) =>
+  const location = useLocation();
+  const isSmallScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("md")
   );
 
@@ -68,12 +70,18 @@ const NavBar: React.FC = () => {
     navigate(route);
   };
 
+  const checkIsActiveLocation = (route: string): boolean => {
+    /* Special handling for home route */
+    if (route === "/") return location.pathname === route;
+    return location.pathname.startsWith(route);
+  };
+
   return (
     <NavBarContainer>
       <LogoContainer>
         <Instagram sx={{ fontSize: "2rem" }} />
 
-        {!isExtraSmallScreen && (
+        {!isSmallScreen && (
           <Typography sx={{ fontWeight: "bold", fontSize: "2rem" }}>
             Instagram
           </Typography>
@@ -82,13 +90,22 @@ const NavBar: React.FC = () => {
 
       <ButtonsContainer>
         {pageIcons.map((icon) => {
-          const { name, IconNormal, route } = icon;
+          const { name, route, IconNormal, IconActive } = icon;
+          const isActive = checkIsActiveLocation(route);
+          const IconRenderer = isActive ? IconActive : IconNormal;
 
           return (
             <ButtonContainer key={name} onClick={() => handlePageClick(route)}>
-              <IconNormal sx={{ fontSize: "1.5rem" }} />
-              {!isExtraSmallScreen && (
-                <Typography sx={{ fontSize: "1rem" }}>{name}</Typography>
+              <IconRenderer sx={{ fontSize: "1.5rem" }} />
+              {!isSmallScreen && (
+                <Typography
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: isActive ? "bold" : "unset",
+                  }}
+                >
+                  {name}
+                </Typography>
               )}
             </ButtonContainer>
           );
@@ -97,7 +114,7 @@ const NavBar: React.FC = () => {
 
       <ButtonContainer>
         <MenuOutlined sx={{ fontSize: "1.5rem" }} />
-        {!isExtraSmallScreen && (
+        {!isSmallScreen && (
           <Typography sx={{ fontSize: "1rem" }}>More</Typography>
         )}
       </ButtonContainer>
