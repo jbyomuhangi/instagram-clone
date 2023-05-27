@@ -86,7 +86,6 @@ const NavBar: React.FC<NavBarProps> = ({
   onPageClick,
 }) => {
   const location = useLocation();
-  const theme = useTheme();
 
   const user = useAppSelector(selectMe);
 
@@ -101,15 +100,7 @@ const NavBar: React.FC<NavBarProps> = ({
         <NavBarButton
           label="Instagram"
           IconRenderer={() => <InstagramIcon />}
-          TypographyProps={{
-            sx: {
-              fontWeight: "bold",
-              fontSize: "2rem",
-              background: `linear-gradient(${theme.palette.primaryGradient.from}, ${theme.palette.primaryGradient.to})`,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            },
-          }}
+          TypographyProps={{ sx: { fontWeight: "bold", fontSize: "2rem" } }}
         />
       </LogoContainer>
 

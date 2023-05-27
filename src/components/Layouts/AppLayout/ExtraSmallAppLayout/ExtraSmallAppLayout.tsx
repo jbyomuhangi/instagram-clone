@@ -1,5 +1,5 @@
 import { Home, HomeOutlined } from "@mui/icons-material";
-import { Box, Typography, styled, useTheme } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
@@ -54,21 +54,12 @@ const ExtraSmallAppLayout: React.FC<ExtraSmallAppLayoutProps> = ({
   onCheckIsActiveLocation,
   onPageClick,
 }) => {
-  const theme = useTheme();
   const user = useAppSelector(selectMe);
 
   return (
     <ExtraSmallAppLayoutContainer>
       <HeaderContainer>
-        <Typography
-          sx={{
-            fontWeight: "bold",
-            fontSize: "1.25rem",
-            background: `linear-gradient(${theme.palette.primaryGradient.from}, ${theme.palette.primaryGradient.to})`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
+        <Typography sx={{ fontWeight: "bold", fontSize: "1.25rem" }}>
           Instagram
         </Typography>
       </HeaderContainer>
