@@ -25,4 +25,5 @@ export type Comment = {
   comment: string;
   likes: number;
   createdAt: string;
+  isLiked: boolean;
 };
